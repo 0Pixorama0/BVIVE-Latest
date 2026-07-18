@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CTASection from "../components/CTASection.astro";
+
+const values = [
+  { ic: "target", t: "Revenue recovery, not debt chasing", d: "We help teams act earlier and more respectfully — protecting the customer relationship, not damaging it." },
+  { ic: "eye", t: "Clarity over clutter", d: "Owners should see the leak; teams should see the next step. No confusing product language." },
+  { ic: "shield", t: "Trustworthy by design", d: "Sensitive financial follow-up demands permissions, care and compliant communication workflows." },
+  { ic: "layers", t: "Built to expand", d: "Start with one workflow, prove the value, then grow across the whole revenue lifecycle." },
+];
+const story = [
+  { t: "Seen firsthand", d: "We watched recurring-revenue businesses lose money through failed debits, delayed follow-up and inconsistent cancellation handling." },
+  { t: "Built to solve it", d: "Bvive was created to give teams one place to see revenue risk and act on it — not because the market needed another generic CRM." },
+  { t: "Proven in fitness", d: "Initial authority comes from gym and membership operations, where recurring-payment leakage is a daily reality." },
+  { t: "Expanding by industry", d: "The same problem translates to childcare, allied health, education and any subscription-style business." },
+];
+---
+<Layout title="About" description="Bvive was built by operators who understand recurring revenue — to solve a real operational problem, not to add another generic CRM.">
+  <PageHero
+    eyebrow="About Bvive"
+    title="Built by operators who understand recurring revenue"
+    sub="Bvive was created to solve a real operational problem: businesses were losing money through failed payments, inconsistent follow-up and weak visibility."
+    crumb={{ label: "Home", href: "/" }}
+  >
+    <a href="/book-demo" class="btn btn--primary">Book a Demo <Icon name="arrow" size={17} class="btn__icon" /></a>
+    <a href="/platform" class="btn btn--ghost">See the platform</a>
+  </PageHero>
+
+  <!-- narrative + image -->
+  <section class="section">
+    <div class="container">
+      <div class="story" data-reveal>
+        <div class="story__media">
+          <ImageSlot label="Founder / operator in a real business environment — gym or membership setting" ratio="4 / 5" rounded="var(--r-xl)" />
+        </div>
+        <div class="story__copy">
+          <span class="eyebrow">Our story</span>
+          <h2>Recurring-revenue businesses are strong when payments and customers are managed well</h2>
+          <p class="lead">Most businesses don't lose revenue in one big event. They lose it through small operational gaps — a failed debit no one chased, a cancellation handled too late, notes scattered across tools. Bvive gives teams one system to identify risk, take action and protect revenue.</p>
+          <div class="story__steps">
+            {story.map((s, i) => (
+              <div class="story__step"><span class="tnum">0{i + 1}</span><div><b>{s.t}</b><p>{s.d}</p></div></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- values -->
+  <section class="section section--tint">
+    <div class="container">
+      <div class="heading-block" data-reveal><span class="eyebrow">What we believe</span><h2>The principles behind the platform</h2></div>
+      <div class="values" data-reveal>
+        {values.map((v) => (
+          <div class="value">
+            <span class="value__ic"><Icon name={v.ic} size={20} /></span>
+            <h3>{v.t}</h3>
+            <p>{v.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- mission band -->
+  <section class="section">
+    <div class="container">
+      <div class="mission" data-reveal>
+        <span class="eyebrow eyebrow--center">Our mission</span>
+        <p class="mission__q">Bvive helps recurring-revenue businesses recover payments, retain customers and create operational clarity through one intelligent platform.</p>
+        <div class="mission__vision">
+          <Icon name="spark" size={16} />
+          <span>Vision: to become the operating system for recurring-revenue businesses that need to protect payments, customers, retention and cash flow.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>
+
+<style>
+  .story { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .story__copy h2 { margin: var(--sp-4) 0 var(--sp-4); }
+  .story__steps { margin-top: var(--sp-7); display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+  .story__step { display: flex; gap: var(--sp-3); }
+  .story__step span { font-family: var(--font-display); font-weight: 700; color: var(--blue-200); flex-shrink: 0; }
+  .story__step b { font-size: var(--text-md); }
+  .story__step p { font-size: var(--text-sm); color: var(--text-muted); margin-top: 3px; }
+
+  .values { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); margin-top: var(--sp-8); }
+  .value { padding: var(--sp-7); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); }
+  .value__ic { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(160deg, var(--blue-50), var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-4); }
+  .value h3 { font-size: var(--text-xl); }
+  .value p { margin-top: var(--sp-3); font-size: var(--text-base); color: var(--text-muted); }
+
+  .mission { text-align: center; max-width: 48rem; margin-inline: auto; }
+  .mission__q { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 400; line-height: 1.3; letter-spacing: -.02em; color: var(--ink-900); margin-top: var(--sp-4); }
+  .mission__vision { display: inline-flex; align-items: center; gap: 10px; margin-top: var(--sp-7); padding: var(--sp-3) var(--sp-5); background: var(--ink-50); border: 1px solid var(--border-soft); border-radius: var(--r-pill); font-size: var(--text-base); color: var(--text-muted); }
+  .mission__vision :global(svg) { color: var(--teal-500); flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .story, .values, .story__steps { grid-template-columns: 1fr; }
+    .mission__vision { border-radius: var(--r-lg); }
+  }
+</style>

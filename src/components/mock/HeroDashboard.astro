@@ -1,0 +1,169 @@
+---
+import AppFrame from "./AppFrame.astro";
+import Icon from "../Icon.astro";
+
+const queue = [
+  { name: "Northside Strength Co.", meta: "Membership · $58/wk", amount: "$1,240", status: "Recovered", tone: "ok", who: "AM" },
+  { name: "Little Owls Childcare", meta: "Fees · $210/fn", amount: "$920", status: "In progress", tone: "warn", who: "PT" },
+  { name: "Coastline Physio", meta: "Care plan · $95/wk", amount: "$570", status: "Promised", tone: "info", who: "JS" },
+  { name: "Metro Dance Academy", meta: "Term fees · $180/mo", amount: "$740", status: "Retry sent", tone: "info", who: "AM" },
+  { name: "Peak Pilates Studio", meta: "Membership · $44/wk", amount: "$308", status: "Overdue", tone: "bad", who: "—" },
+];
+---
+<AppFrame class="hero-dash">
+  <div class="dash">
+    <aside class="dash__rail">
+      <div class="rail__brand"><span></span></div>
+      <nav class="rail__nav">
+        <a class="rail__item is-active" title="Recovery"><Icon name="recover" size={18} /></a>
+        <a class="rail__item" title="Arrears"><Icon name="arrears" size={18} /></a>
+        <a class="rail__item" title="Cancellations"><Icon name="retain" size={18} /></a>
+        <a class="rail__item" title="Customers"><Icon name="crm" size={18} /></a>
+        <a class="rail__item" title="Tasks"><Icon name="tasks" size={18} /></a>
+        <a class="rail__item" title="Analytics"><Icon name="analytics" size={18} /></a>
+      </nav>
+      <span class="rail__me">RW</span>
+    </aside>
+
+    <div class="dash__main">
+      <header class="dash__head">
+        <div>
+          <p class="dash__crumb">Revenue Recovery</p>
+          <h3 class="dash__title">Recovery workspace</h3>
+        </div>
+        <div class="dash__period"><Icon name="clock" size={14} /> Last 30 days</div>
+      </header>
+
+      <div class="dash__stats">
+        <div class="stat stat--accent">
+          <span class="stat__k">Recovered this month</span>
+          <span class="stat__v tnum">$48,920</span>
+          <span class="stat__d up">▲ 18% vs last month</span>
+        </div>
+        <div class="stat">
+          <span class="stat__k">At-risk balance</span>
+          <span class="stat__v tnum">$12,480</span>
+          <span class="stat__d">142 accounts</span>
+        </div>
+        <div class="stat">
+          <span class="stat__k">Save rate</span>
+          <span class="stat__v tnum">63%</span>
+          <span class="stat__d up">▲ 6 pts</span>
+        </div>
+      </div>
+
+      <div class="dash__cols">
+        <section class="panel">
+          <div class="panel__head">
+            <h4>Recovery queue</h4>
+            <span class="panel__count">142 open</span>
+          </div>
+          <ul class="queue">
+            {queue.map((r) => (
+              <li class="queue__row">
+                <span class="queue__av">{r.who}</span>
+                <span class="queue__id">
+                  <b>{r.name}</b>
+                  <em>{r.meta}</em>
+                </span>
+                <span class="queue__amt tnum">{r.amount}</span>
+                <span class={`tag tag--${r.tone}`}>{r.status}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <aside class="panel panel--chart">
+          <div class="panel__head"><h4>Recovered revenue</h4></div>
+          <div class="chart">
+            <svg viewBox="0 0 260 120" preserveAspectRatio="none" class="chart__svg">
+              <defs>
+                <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#10b5a6" stop-opacity=".34"/>
+                  <stop offset="1" stop-color="#10b5a6" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 96 L26 88 L52 92 L78 74 L104 78 L130 58 L156 62 L182 44 L208 36 L234 24 L260 16 L260 120 L0 120 Z" fill="url(#area)"/>
+              <path d="M0 96 L26 88 L52 92 L78 74 L104 78 L130 58 L156 62 L182 44 L208 36 L234 24 L260 16" fill="none" stroke="#0b8f84" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="260" cy="16" r="3.4" fill="#0b8f84"/>
+            </svg>
+          </div>
+          <ul class="legend">
+            <li><span class="legend__d" style="background:#0b8f84"></span> Recovered</li>
+            <li class="tnum">$48.9k</li>
+          </ul>
+          <div class="mini">
+            <div class="mini__row"><span>Failed payments</span><b class="tnum">312</b></div>
+            <div class="mini__row"><span>Cancellations saved</span><b class="tnum">57</b></div>
+            <div class="mini__row"><span>Avg. days to recover</span><b class="tnum">3.4</b></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</AppFrame>
+
+<style>
+  .dash { display: grid; grid-template-columns: 60px 1fr; min-height: 460px; font-size: 13px; }
+  .dash__rail {
+    background: var(--navy-900); display: flex; flex-direction: column; align-items: center;
+    padding: 14px 0; gap: 14px;
+  }
+  .rail__brand span { display: block; width: 26px; height: 26px; border-radius: 8px; background: var(--grad-brand); box-shadow: 0 4px 12px rgba(16,181,166,.4); }
+  .rail__nav { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .rail__item { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; color: #6f88a6; transition: all var(--dur) var(--ease-out); }
+  .rail__item.is-active { background: rgba(16,181,166,.16); color: #4fe0d0; }
+  .rail__me { margin-top: auto; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #12365e; color: #cfe0f2; font-size: 11px; font-weight: 700; }
+
+  .dash__main { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+  .dash__head { display: flex; align-items: flex-end; justify-content: space-between; }
+  .dash__crumb { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-600); }
+  .dash__title { font-size: 20px; letter-spacing: -.02em; margin-top: 3px; }
+  .dash__period { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-500); background: var(--white); border: 1px solid var(--border); padding: 6px 11px; border-radius: var(--r-pill); }
+
+  .dash__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat { background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-md); padding: 13px 14px; box-shadow: var(--shadow-xs); }
+  .stat--accent { background: linear-gradient(160deg, #06283f, #0a3350); border-color: transparent; }
+  .stat__k { display: block; font-size: 11.5px; color: var(--ink-500); font-weight: 500; }
+  .stat--accent .stat__k { color: #8fb4c9; }
+  .stat__v { display: block; font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -.02em; margin-top: 4px; color: var(--ink-900); }
+  .stat--accent .stat__v { color: #fff; }
+  .stat__d { display: block; font-size: 11px; color: var(--ink-400); margin-top: 3px; }
+  .stat__d.up { color: var(--green-600); }
+  .stat--accent .stat__d.up { color: #43e3a1; }
+
+  .dash__cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; flex: 1; }
+  .panel { background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-md); padding: 14px; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; }
+  .panel__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .panel__head h4 { font-size: 13.5px; font-family: var(--font-sans); font-weight: 600; letter-spacing: 0; }
+  .panel__count { font-size: 11px; color: var(--ink-400); background: var(--ink-50); padding: 3px 9px; border-radius: var(--r-pill); }
+
+  .queue { display: flex; flex-direction: column; gap: 2px; }
+  .queue__row { display: grid; grid-template-columns: 28px 1fr auto auto; align-items: center; gap: 10px; padding: 7px 6px; border-radius: 9px; }
+  .queue__row:hover { background: var(--ink-50); }
+  .queue__av { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--blue-50); color: var(--blue-700); font-size: 10.5px; font-weight: 700; }
+  .queue__id b { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-800); }
+  .queue__id em { font-style: normal; font-size: 11px; color: var(--ink-400); }
+  .queue__amt { font-size: 12.5px; font-weight: 600; color: var(--ink-800); }
+  .tag { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: var(--r-pill); white-space: nowrap; }
+  .tag--ok { background: var(--green-100); color: var(--green-600); }
+  .tag--info { background: var(--blue-50); color: var(--blue-700); }
+  .tag--warn { background: var(--amber-100); color: var(--amber-600); }
+  .tag--bad { background: var(--red-100); color: var(--red-600); }
+
+  .panel--chart { gap: 8px; }
+  .chart { height: 90px; }
+  .chart__svg { width: 100%; height: 100%; }
+  .legend { display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: var(--ink-500); }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+  .legend__d { width: 8px; height: 8px; border-radius: 2px; }
+  .mini { margin-top: auto; border-top: 1px solid var(--border-soft); padding-top: 10px; display: grid; gap: 8px; }
+  .mini__row { display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: var(--ink-500); }
+  .mini__row b { color: var(--ink-800); font-weight: 700; }
+
+  @media (max-width: 560px) {
+    .dash__stats { grid-template-columns: 1fr; }
+    .dash__cols { grid-template-columns: 1fr; }
+    .dash { font-size: 12px; }
+  }
+</style>

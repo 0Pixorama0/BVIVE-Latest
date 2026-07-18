@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../data/site";
+const updated = "19 July 2026";
+---
+<Layout title="Terms of Use" description="The terms that apply to using the Bvive website and platform.">
+  <PageHero eyebrow="Legal" title="Terms of Use" sub={`Last updated ${updated}`} crumb={{ label: "Home", href: "/" }} />
+  <section class="section section--flush-top">
+    <div class="container">
+      <div class="legalnote">This is a template terms document provided as a starting point. It should be reviewed and finalised by {site.name}'s legal advisors before launch.</div>
+      <div class="prose">
+        <h2>Acceptance</h2>
+        <p>By accessing the {site.name} website or platform, you agree to these terms. If you do not agree, please do not use our services.</p>
+
+        <h2>Our service</h2>
+        <p>{site.name} is a revenue recovery and customer lifecycle platform. It complements existing payment and customer workflows and is not a payment processor or a debt collection agency. Only features described as live are available; roadmap features are indicative and subject to change.</p>
+
+        <h2>No guaranteed outcomes</h2>
+        <p>We help teams recover more than an inconsistent, manual process typically would, but we do not guarantee specific recovery amounts or outcomes. Any figures shown in calculators or examples are illustrative estimates.</p>
+
+        <h2>Acceptable use</h2>
+        <ul>
+          <li>Use the platform only for lawful business purposes.</li>
+          <li>Follow applicable laws when communicating with your customers.</li>
+          <li>Maintain the confidentiality of your account credentials.</li>
+        </ul>
+
+        <h2>Intellectual property</h2>
+        <p>All content, branding and software associated with {site.name} remain our property or that of our licensors and may not be copied or reused without permission.</p>
+
+        <h2>Limitation of liability</h2>
+        <p>To the extent permitted by law, {site.name} is not liable for indirect or consequential loss arising from use of the website or platform. Nothing in these terms excludes rights you have under Australian Consumer Law.</p>
+
+        <h2>Contact</h2>
+        <p>Questions about these terms? Contact us at <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legalnote { max-width: 46rem; margin-bottom: var(--sp-7); padding: var(--sp-4) var(--sp-5); background: var(--amber-100); border: 1px solid #f3d79a; border-radius: var(--r-md); font-size: var(--text-sm); color: #8a5a0f; }
+</style>

@@ -1,0 +1,50 @@
+---
+import Icon from "./Icon.astro";
+import { faqs as defaultFaqs } from "../data/site";
+interface Props { items?: { q: string; a: string }[]; heading?: string; eyebrow?: string; }
+const { items = defaultFaqs, heading = "Answers before you ask", eyebrow = "FAQ" } = Astro.props;
+---
+<section class="section faq">
+  <div class="container">
+    <div class="faq__layout">
+      <div class="faq__intro" data-reveal>
+        <span class="eyebrow">{eyebrow}</span>
+        <h2>{heading}</h2>
+        <p class="lead">Everything a buyer usually wants to know before a demo call. Still unsure? <a href="/contact" class="link-arrow">Talk to us <Icon name="arrow" size={15} /></a></p>
+      </div>
+      <div class="faq__list" data-reveal>
+        {items.map((f, i) => (
+          <details class="faq__item" open={i === 0}>
+            <summary>
+              <span>{f.q}</span>
+              <span class="faq__ic"><Icon name="plus" size={18} /></span>
+            </summary>
+            <div class="faq__a"><p>{f.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .faq__layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--sp-9); align-items: start; }
+  .faq__intro { position: sticky; top: calc(var(--nav-h) + 32px); }
+  .faq__list { display: flex; flex-direction: column; }
+  .faq__item { border-top: 1px solid var(--border); }
+  .faq__item:last-child { border-bottom: 1px solid var(--border); }
+  .faq__item summary {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
+    padding: var(--sp-5) 0; cursor: pointer; list-style: none;
+    font-family: var(--font-display); font-size: var(--text-lg); font-weight: 500;
+    letter-spacing: -.015em; color: var(--ink-900);
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__ic { flex-shrink: 0; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink-50); color: var(--ink-600); transition: transform var(--dur) var(--ease-out), background var(--dur), color var(--dur); }
+  .faq__item[open] .faq__ic { transform: rotate(45deg); background: var(--blue-600); color: #fff; }
+  .faq__a { overflow: hidden; padding-bottom: var(--sp-5); }
+  .faq__a p { color: var(--text-muted); font-size: var(--text-base); max-width: 60ch; }
+  @media (max-width: 820px) {
+    .faq__layout { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .faq__intro { position: static; }
+  }
+</style>

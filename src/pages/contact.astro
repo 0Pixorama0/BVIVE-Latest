@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import DemoForm from "../components/DemoForm.astro";
+import { site } from "../data/site";
+const channels = [
+  { ic: "mail", t: "Email", v: site.email, href: `mailto:${site.email}` },
+  { ic: "phone", t: "Phone", v: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}` },
+  { ic: "pin", t: "Based in", v: "Australia — serving recurring-revenue businesses nationwide", href: null },
+];
+---
+<Layout title="Contact" description="Tell us about your business and we'll show you where Bvive can help protect payments, customers and cash flow.">
+  <section class="ct">
+    <span class="ct__bg" aria-hidden="true"></span>
+    <div class="container ct__inner">
+      <div class="ct__left" data-reveal>
+        <span class="eyebrow">Contact</span>
+        <h1>Ready to recover more revenue?</h1>
+        <p class="ct__sub">Tell us about your business and we'll show you where Bvive can help protect payments, customers and cash flow.</p>
+
+        <div class="ct__channels">
+          {channels.map((c) => (
+            <div class="ct__ch">
+              <span class="ct__ic"><Icon name={c.ic} size={18} /></span>
+              <div>
+                <b>{c.t}</b>
+                {c.href ? <a href={c.href}>{c.v}</a> : <span>{c.v}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="ct__aside">
+          <h3>Prefer a guided walkthrough?</h3>
+          <p>Book a demo and we'll tailor it to your industry and customer volume.</p>
+          <a href="/book-demo" class="link-arrow">Book a demo <Icon name="arrow" size={16} /></a>
+        </div>
+      </div>
+
+      <div class="ct__right" data-reveal>
+        <DemoForm />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ct { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+  .ct__bg { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink-50), var(--paper)); }
+  .ct__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .ct__left { position: sticky; top: calc(var(--nav-h) + 32px); }
+  .ct h1 { margin-top: var(--sp-3); font-size: var(--text-4xl); }
+  .ct__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: var(--text-muted); max-width: 40ch; }
+  .ct__channels { margin-top: var(--sp-8); display: grid; gap: var(--sp-4); }
+  .ct__ch { display: flex; gap: var(--sp-4); align-items: center; }
+  .ct__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--white); border: 1px solid var(--border-soft); color: var(--blue-600); box-shadow: var(--shadow-xs); flex-shrink: 0; }
+  .ct__ch b { display: block; font-size: var(--text-sm); color: var(--ink-500); font-weight: 600; }
+  .ct__ch a, .ct__ch span { font-size: var(--text-base); color: var(--ink-800); font-weight: 500; }
+  .ct__ch a:hover { color: var(--blue-600); }
+  .ct__aside { margin-top: var(--sp-8); padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); }
+  .ct__aside h3 { font-size: var(--text-lg); }
+  .ct__aside p { margin: var(--sp-2) 0 var(--sp-4); font-size: var(--text-base); color: var(--text-muted); }
+
+  @media (max-width: 900px) {
+    .ct__inner { grid-template-columns: 1fr; }
+    .ct__left { position: static; }
+  }
+</style>

@@ -1,0 +1,162 @@
+/* ============================================================
+   Bvive — Design Tokens
+   Revenue Recovery & Customer Lifecycle Platform
+   8px spacing system · fluid type · fintech-grade palette
+   ============================================================ */
+
+:root {
+  /* ---- Neutrals (cool, slightly blue-tinted premium greys) ---- */
+  --white: #ffffff;
+  --paper: #fbfcfe;         /* page background */
+  --ink-50:  #f3f6fb;       /* section tint */
+  --ink-100: #e8eef6;       /* hairlines on tint */
+  --ink-200: #d7dfea;       /* borders */
+  --ink-300: #b9c4d4;
+  --ink-400: #8a97ab;       /* muted text */
+  --ink-500: #5d6b82;       /* secondary text */
+  --ink-600: #3f4d64;
+  --ink-700: #26344b;
+  --ink-800: #16233a;
+  --ink-900: #0b1626;       /* primary text */
+
+  /* ---- Deep navy surfaces (dark hero / footer) ---- */
+  --navy-950: #050e1c;
+  --navy-900: #071a2e;
+  --navy-850: #0a2138;
+  --navy-800: #0e2b47;
+  --navy-line: #17324f;     /* borders on navy */
+
+  /* ---- Brand blue (trust) ---- */
+  --blue-50:  #eef4ff;
+  --blue-100: #dbe7ff;
+  --blue-200: #b9d0ff;
+  --blue-400: #4e86f2;
+  --blue-500: #1f63e8;
+  --blue-600: #0e4cc0;      /* primary brand */
+  --blue-700: #0b3a8f;
+
+  /* ---- Recovery accent (teal/emerald — cash flow, growth) ---- */
+  --teal-50:  #e6faf7;
+  --teal-100: #c4f2ec;
+  --teal-400: #2ed3c4;
+  --teal-500: #10b5a6;      /* accent */
+  --teal-600: #0b8f84;
+
+  --green-100: #d6f5e4;
+  --green-500: #17b26a;     /* recovered / success */
+  --green-600: #0f9257;
+
+  /* ---- States (product UI, used sparingly) ---- */
+  --amber-100: #fdefd3;
+  --amber-500: #f2a521;
+  --amber-600: #cf8410;
+  --red-100:  #fbdcdd;
+  --red-500:  #e5484d;
+  --red-600:  #c62a2f;
+
+  /* ---- Signature gradients ---- */
+  --grad-brand: linear-gradient(135deg, var(--blue-600) 0%, var(--teal-500) 100%);
+  --grad-brand-soft: linear-gradient(135deg, #123b9e 0%, #0e7b8f 100%);
+  --grad-glow: radial-gradient(60% 60% at 50% 0%, rgba(46,211,196,.20) 0%, rgba(31,99,232,.10) 40%, transparent 72%);
+  --grad-recovered: linear-gradient(90deg, var(--teal-500), var(--green-500));
+
+  /* ---- Semantic ---- */
+  --bg: var(--paper);
+  --bg-tint: var(--ink-50);
+  --surface: var(--white);
+  --text: var(--ink-900);
+  --text-muted: var(--ink-500);
+  --text-subtle: var(--ink-400);
+  --border: var(--ink-200);
+  --border-soft: var(--ink-100);
+  --brand: var(--blue-600);
+  --accent: var(--teal-500);
+
+  /* ---- Typography ---- */
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", monospace;
+
+  /* fluid type scale (min 360px → max 1280px) */
+  --text-xs:   0.75rem;    /* 12 */
+  --text-sm:   0.8125rem;  /* 13 */
+  --text-base: 0.9375rem;  /* 15 */
+  --text-md:   1rem;       /* 16 */
+  --text-lg:   clamp(1.0625rem, 0.4vw + 0.95rem, 1.1875rem);
+  --text-xl:   clamp(1.25rem, 0.7vw + 1.05rem, 1.5rem);
+  --text-2xl:  clamp(1.6rem, 1.4vw + 1.2rem, 2.15rem);
+  --text-3xl:  clamp(2rem, 2.4vw + 1.3rem, 3rem);
+  --text-4xl:  clamp(2.5rem, 3.6vw + 1.4rem, 4rem);
+  --text-5xl:  clamp(3rem, 5vw + 1.3rem, 4.9rem);
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.18;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  --tracking-tight: -0.03em;
+  --tracking-snug: -0.015em;
+  --tracking-wide: 0.02em;
+  --tracking-eyebrow: 0.14em;
+
+  /* ---- Spacing (8px system, 4px half-steps) ---- */
+  --sp-1: 0.25rem;   /* 4 */
+  --sp-2: 0.5rem;    /* 8 */
+  --sp-3: 0.75rem;   /* 12 */
+  --sp-4: 1rem;      /* 16 */
+  --sp-5: 1.5rem;    /* 24 */
+  --sp-6: 2rem;      /* 32 */
+  --sp-7: 2.5rem;    /* 40 */
+  --sp-8: 3rem;      /* 48 */
+  --sp-9: 4rem;      /* 64 */
+  --sp-10: 5rem;     /* 80 */
+  --sp-11: 6rem;     /* 96 */
+  --sp-12: 8rem;     /* 128 */
+  --sp-13: 10rem;    /* 160 */
+
+  /* section rhythm */
+  --section-y: clamp(4rem, 7vw, 8rem);
+  --section-y-lg: clamp(5rem, 9vw, 10rem);
+
+  /* ---- Radii ---- */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-2xl: 36px;
+  --r-pill: 999px;
+
+  /* ---- Shadows (layered, soft, premium) ---- */
+  --shadow-xs: 0 1px 2px rgba(11, 22, 38, .06);
+  --shadow-sm: 0 1px 3px rgba(11, 22, 38, .07), 0 1px 2px rgba(11, 22, 38, .04);
+  --shadow-md: 0 8px 24px -8px rgba(11, 22, 38, .12), 0 2px 6px rgba(11, 22, 38, .06);
+  --shadow-lg: 0 24px 60px -18px rgba(11, 22, 38, .22), 0 6px 16px -8px rgba(11, 22, 38, .10);
+  --shadow-xl: 0 44px 100px -30px rgba(9, 27, 56, .38), 0 12px 32px -16px rgba(9, 27, 56, .18);
+  --shadow-brand: 0 20px 50px -18px rgba(14, 76, 192, .45);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, .6);
+  --ring: 0 0 0 4px rgba(31, 99, 232, .18);
+
+  /* ---- Layout ---- */
+  --container: 1200px;
+  --container-wide: 1320px;
+  --container-narrow: 760px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --nav-h: 68px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 480ms;
+  --dur-slower: 800ms;
+
+  /* ---- z-index ---- */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+}

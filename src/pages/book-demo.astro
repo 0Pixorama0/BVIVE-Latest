@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import DemoForm from "../components/DemoForm.astro";
+const expect = [
+  { t: "A tailored walkthrough", d: "We map Bvive to your industry, customer volume and current process — not a generic tour." },
+  { t: "Your recovery opportunity, sized", d: "We'll estimate the revenue you could be recovering and the admin time you could save." },
+  { t: "A staged rollout plan", d: "See how you'd start with one workflow and expand, with guided onboarding." },
+];
+---
+<Layout title="Book a Demo" description="Book a guided demo of Bvive and see how your team can manage failed payments, cancellations and customer follow-up from one platform.">
+  <section class="bd">
+    <span class="bd__bg" aria-hidden="true"></span>
+    <div class="container bd__inner">
+      <div class="bd__left" data-reveal>
+        <span class="eyebrow">Book a demo</span>
+        <h1>See how much revenue your business could be recovering</h1>
+        <p class="bd__sub">Book a guided demo of Bvive and discover how your team can manage failed payments, cancellations and customer follow-up from one platform.</p>
+
+        <ul class="bd__expect">
+          {expect.map((e, i) => (
+            <li>
+              <span class="bd__n tnum">0{i + 1}</span>
+              <div><b>{e.t}</b><p>{e.d}</p></div>
+            </li>
+          ))}
+        </ul>
+
+        <div class="bd__trust">
+          <div class="bd__trust-item"><Icon name="check-circle" size={18} /> Built for 500+ recurring customers</div>
+          <div class="bd__trust-item"><Icon name="check-circle" size={18} /> Sits beside your payment provider</div>
+          <div class="bd__trust-item"><Icon name="check-circle" size={18} /> No obligation</div>
+        </div>
+      </div>
+
+      <div class="bd__right" data-reveal>
+        <DemoForm />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .bd { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+  .bd__bg { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink-50), var(--paper)); }
+  .bd__bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 50% at 12% 0%, rgba(31,99,232,.08), transparent 60%); }
+  .bd__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .bd__left { position: sticky; top: calc(var(--nav-h) + 32px); }
+  .bd h1 { margin-top: var(--sp-3); font-size: var(--text-4xl); }
+  .bd__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: var(--text-muted); max-width: 42ch; }
+  .bd__expect { margin-top: var(--sp-8); display: grid; gap: var(--sp-5); }
+  .bd__expect li { display: flex; gap: var(--sp-4); }
+  .bd__n { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--blue-200); flex-shrink: 0; }
+  .bd__expect b { font-size: var(--text-md); color: var(--ink-900); }
+  .bd__expect p { font-size: var(--text-base); color: var(--text-muted); margin-top: 3px; }
+  .bd__trust { margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--border); display: grid; gap: var(--sp-3); }
+  .bd__trust-item { display: flex; align-items: center; gap: 10px; font-size: var(--text-base); font-weight: 500; color: var(--ink-700); }
+  .bd__trust-item :global(svg) { color: var(--teal-600); }
+
+  @media (max-width: 900px) {
+    .bd__inner { grid-template-columns: 1fr; }
+    .bd__left { position: static; }
+  }
+</style>

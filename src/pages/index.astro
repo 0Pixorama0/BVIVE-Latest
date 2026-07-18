@@ -1,0 +1,435 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import HeroDashboard from "../components/mock/HeroDashboard.astro";
+import Calculator from "../components/Calculator.astro";
+import Faq from "../components/Faq.astro";
+import CTASection from "../components/CTASection.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import { pillars, modules, howItWorks, industries, moreIndustries } from "../data/site";
+
+const liveModules = modules.filter((m) => m.status !== "roadmap");
+const roadmap = modules.filter((m) => m.status === "roadmap");
+const bentoCards = [
+  modules.find((m) => m.slug === "arrears-management")!,
+  modules.find((m) => m.slug === "cancellation-management")!,
+  modules.find((m) => m.slug === "customer-lifecycle")!,
+  modules.find((m) => m.slug === "analytics")!,
+];
+const cardHref = (slug: string) => `/solutions/${slug}`;
+---
+<Layout>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <span class="hero__bg" aria-hidden="true"></span>
+    <span class="hero__grid" aria-hidden="true"></span>
+    <div class="container--wide hero__inner">
+      <div class="hero__copy">
+        <a href="/platform" class="hero__ann" data-reveal>
+          <span class="pill pill--recovery"><span class="dot"></span> Revenue Recovery Platform</span>
+          <span class="hero__ann-t">See the platform <Icon name="arrow" size={14} /></span>
+        </a>
+        <h1 data-reveal data-reveal-delay="1">
+          Recover failed payments.<br />
+          Reduce cancellations.<br />
+          <span class="grad-text">Protect recurring revenue.</span>
+        </h1>
+        <p class="hero__sub" data-reveal data-reveal-delay="2">
+          Bvive helps businesses using direct debit manage failed payments, overdue
+          accounts, cancellation requests and customer follow-up — from one platform.
+        </p>
+        <div class="hero__cta" data-reveal data-reveal-delay="3">
+          <a href="/book-demo" class="btn btn--primary btn--lg">Book a Demo <Icon name="arrow" size={18} class="btn__icon" /></a>
+          <a href="/platform" class="btn btn--on-navy btn--lg"><Icon name="play" size={17} /> See how it works</a>
+        </div>
+        <ul class="hero__trust" data-reveal data-reveal-delay="4">
+          <li><Icon name="check-circle" size={16} /> Sits beside your payment provider</li>
+          <li><Icon name="check-circle" size={16} /> Built for 500+ recurring customers</li>
+          <li><Icon name="check-circle" size={16} /> Australian recurring-revenue focus</li>
+        </ul>
+      </div>
+      <div class="hero__visual" data-reveal data-reveal-delay="2">
+        <HeroDashboard />
+        <span class="hero__float hero__float--1"><Icon name="dollar" size={16} /> <b>$1,240</b> recovered</span>
+        <span class="hero__float hero__float--2"><Icon name="retain" size={16} /> Cancellation <b>saved</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST STRIP ============ -->
+  <section class="strip">
+    <div class="container--wide strip__inner">
+      <p class="strip__label">Built for recurring-revenue businesses across Australia</p>
+      <ul class="strip__logos">
+        {industries.map((i) => <li>{i.name}</li>)}
+        {moreIndustries.map((i) => <li>{i}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PROBLEM ============ -->
+  <section class="section problem">
+    <div class="container">
+      <div class="problem__grid">
+        <div class="problem__lead" data-reveal>
+          <span class="eyebrow">The quiet leak</span>
+          <h2>Most businesses don't lose recurring revenue in one big event.</h2>
+          <p class="lead">They lose it in the gaps — failed payments no one chased, cancellations handled too late, overdue accounts buried in a spreadsheet only one person understands.</p>
+          <a href="/calculator" class="link-arrow">Estimate your revenue leakage <Icon name="arrow" size={16} /></a>
+        </div>
+        <ul class="leaks" data-reveal>
+          <li class="leak">
+            <span class="leak__ic leak__ic--red"><Icon name="bolt" size={18} /></span>
+            <div><b>Failed debits pile up</b><p>Payments fail and sit in exports with no owner and no follow-up.</p></div>
+          </li>
+          <li class="leak">
+            <span class="leak__ic leak__ic--amber"><Icon name="refresh" size={18} /></span>
+            <div><b>Cancellations slip away</b><p>Requests are handled inconsistently, so save opportunities are missed.</p></div>
+          </li>
+          <li class="leak">
+            <span class="leak__ic leak__ic--blue"><Icon name="arrears" size={18} /></span>
+            <div><b>Arrears live in spreadsheets</b><p>Overdue accounts have no central accountability or clear next step.</p></div>
+          </li>
+          <li class="leak">
+            <span class="leak__ic leak__ic--ink"><Icon name="eye" size={18} /></span>
+            <div><b>Owners can't see the leak</b><p>No one can say how much revenue is actually recoverable right now.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PILLARS ============ -->
+  <section class="section section--tint pillars">
+    <div class="container">
+      <div class="heading-block heading-block--center" data-reveal>
+        <span class="eyebrow eyebrow--center">One platform, four outcomes</span>
+        <h2>Everything ladders up to protecting recurring revenue</h2>
+        <p class="lead mx-auto">Bvive brings the revenue recovery workflow into one place so your team can act earlier and report clearly.</p>
+      </div>
+      <div class="pillars__row">
+        {pillars.map((p, i) => (
+          <article class="pillar" data-reveal data-reveal-delay={String(i + 1)}>
+            <span class="pillar__ic"><Icon name={p.icon} size={22} /></span>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLATFORM / MODULES BENTO ============ -->
+  <section class="section platform-showcase">
+    <div class="container">
+      <div class="showcase__head" data-reveal>
+        <div class="heading-block">
+          <span class="eyebrow">The platform</span>
+          <h2>One operating system for the moments that fall through the cracks</h2>
+        </div>
+        <a href="/platform" class="btn btn--ghost">Explore the platform <Icon name="arrow" size={16} class="btn__icon" /></a>
+      </div>
+
+      <div class="bento" data-reveal>
+        <article class="bento__feature">
+          <div class="bento__feature-copy">
+            <span class="pill pill--tint"><Icon name="recover" size={13} /> Payment recovery</span>
+            <h3>Every failed payment becomes an owned, trackable task</h3>
+            <p>Prioritise by value and age, assign follow-up, log every retry and outcome, and report on exactly what was recovered.</p>
+            <a href="/solutions/payment-recovery" class="link-arrow">See payment recovery <Icon name="arrow" size={15} /></a>
+          </div>
+          <div class="bento__feature-mock">
+            <div class="qcard">
+              <div class="qcard__row"><span class="qcard__dot ok"></span> Northside Strength Co. <b class="tnum">$1,240</b><span class="qtag ok">Recovered</span></div>
+              <div class="qcard__row"><span class="qcard__dot warn"></span> Little Owls Childcare <b class="tnum">$920</b><span class="qtag warn">In progress</span></div>
+              <div class="qcard__row"><span class="qcard__dot info"></span> Coastline Physio <b class="tnum">$570</b><span class="qtag info">Promised</span></div>
+              <div class="qcard__row is-dim"><span class="qcard__dot bad"></span> Peak Pilates Studio <b class="tnum">$308</b><span class="qtag bad">Overdue</span></div>
+            </div>
+          </div>
+        </article>
+
+        {bentoCards.map((m) => (
+          <a href={cardHref(m.slug)} class="bento__card">
+            <span class="bento__ic"><Icon name={m.icon} size={20} /></span>
+            <h4>{m.name}</h4>
+            <p>{m.summary}</p>
+            <span class="bento__go"><Icon name="arrow-up-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+
+      <div class="roadmap" data-reveal>
+        <span class="roadmap__label">On the roadmap</span>
+        <ul>
+          {roadmap.map((m) => (
+            <li><span class="pill pill--roadmap"><span class="dot"></span> {m.name}</span> <span class="roadmap__desc">{m.summary}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section section--navy howworks">
+    <span class="howworks__glow" aria-hidden="true"></span>
+    <div class="container">
+      <div class="heading-block" data-reveal>
+        <span class="eyebrow">How it works</span>
+        <h2>From scattered admin to accountable workflow in four moves</h2>
+      </div>
+      <ol class="steps" data-reveal>
+        {howItWorks.map((s, i) => (
+          <li class="step">
+            <span class="step__n">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            {i < howItWorks.length - 1 && <span class="step__line" aria-hidden="true"></span>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ INDUSTRIES (interactive) ============ -->
+  <section class="section industries-home">
+    <div class="container">
+      <div class="heading-block" data-reveal>
+        <span class="eyebrow">Industries</span>
+        <h2>Built for businesses with recurring customers and direct-debit revenue</h2>
+      </div>
+      <div class="indtab" data-reveal data-indtab>
+        <div class="indtab__tabs" role="tablist">
+          {industries.map((ind, i) => (
+            <button class={`indtab__tab ${i === 0 ? "is-on" : ""}`} data-tab={ind.slug} role="tab" aria-selected={i === 0}>
+              {ind.short}
+            </button>
+          ))}
+        </div>
+        <div class="indtab__panels">
+          {industries.map((ind, i) => (
+            <div class={`indtab__panel ${i === 0 ? "is-on" : ""}`} data-panel={ind.slug}>
+              <div class="indtab__copy">
+                <h3>{ind.title}</h3>
+                <p>{ind.benefit}</p>
+                <ul class="indtab__points">
+                  {ind.points.map((pt) => <li><Icon name="check" size={15} /> {pt}</li>)}
+                </ul>
+                <a href={`/industries/${ind.slug}`} class="btn btn--dark btn--sm">Explore {ind.short} <Icon name="arrow" size={15} class="btn__icon" /></a>
+              </div>
+              <div class="indtab__media">
+                <ImageSlot label={ind.imageLabel} ratio="4 / 3" rounded="var(--r-lg)" />
+                <div class="indtab__stat"><b class="tnum">{ind.stat.value}</b><span>{ind.stat.label}</span></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROOF / FOUNDER ============ -->
+  <section class="section section--tint proof">
+    <div class="container">
+      <div class="proof__grid">
+        <div class="proof__media" data-reveal>
+          <ImageSlot label="Founder / operator portrait — confident, approachable, real business environment" ratio="3 / 4" rounded="var(--r-xl)" />
+        </div>
+        <div class="proof__copy" data-reveal>
+          <span class="eyebrow">Why Bvive exists</span>
+          <blockquote class="proof__quote">
+            <Icon name="quote" size={30} class="proof__qmark" />
+            <p>We watched recurring-revenue businesses lose real money through small operational gaps — a failed debit no one chased, a cancellation handled too late. Bvive is the system we wished we'd had: one place to see the risk and act on it.</p>
+          </blockquote>
+          <div class="proof__by">
+            <b>Built by operators</b>
+            <span>who understand member-based, direct-debit revenue</span>
+          </div>
+          <div class="proof__stats">
+            <div><b class="tnum">4</b><span>revenue moments, unified</span></div>
+            <div><b class="tnum">1</b><span>platform, not a spreadsheet</span></div>
+            <div><b>AU</b><span>recurring-revenue focus</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CALCULATOR ============ -->
+  <Calculator />
+
+  <!-- ============ FAQ ============ -->
+  <Faq />
+
+  <!-- ============ CTA ============ -->
+  <CTASection />
+</Layout>
+
+<style>
+  /* ---------- HERO ---------- */
+  .hero { position: relative; overflow: hidden; background: var(--navy-900); color: #cdd8e6; padding-block: clamp(3rem, 7vw, 6rem) clamp(4rem, 8vw, 7rem); }
+  .hero__bg { position: absolute; inset: 0; background: radial-gradient(80% 60% at 70% -10%, rgba(16,181,166,.18), transparent 55%), radial-gradient(70% 60% at 15% 10%, rgba(31,99,232,.22), transparent 55%), linear-gradient(180deg, #071a2e, #050e1c); }
+  .hero__grid { position: absolute; inset: 0; opacity: .5; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 46px 46px; -webkit-mask-image: radial-gradient(90% 80% at 50% 0%, #000, transparent 80%); mask-image: radial-gradient(90% 80% at 50% 0%, #000, transparent 80%); }
+  .hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1.06fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .hero__ann { display: inline-flex; align-items: center; gap: 12px; margin-bottom: var(--sp-5); }
+  .hero__ann-t { font-size: var(--text-sm); font-weight: 600; color: #a9c6dd; display: inline-flex; align-items: center; gap: 5px; }
+  .hero h1 { color: #fff; font-size: clamp(2.5rem, 5.4vw, 4.4rem); line-height: 1.02; letter-spacing: -.035em; }
+  .hero__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: #9fb4cb; max-width: 40ch; }
+  .hero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-7); }
+  .hero__trust { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-7); }
+  .hero__trust li { display: inline-flex; align-items: center; gap: 7px; font-size: var(--text-sm); color: #8fa6bf; }
+  .hero__trust :global(svg) { color: var(--teal-400); }
+  .hero__visual { position: relative; }
+  .hero__float { position: absolute; display: inline-flex; align-items: center; gap: 7px; padding: 9px 13px; border-radius: var(--r-pill); background: rgba(255,255,255,.92); backdrop-filter: blur(8px); color: var(--ink-700); font-size: var(--text-sm); font-weight: 500; box-shadow: var(--shadow-lg); z-index: 5; }
+  .hero__float b { font-weight: 700; color: var(--ink-900); }
+  .hero__float :global(svg) { color: var(--teal-600); }
+  .hero__float--1 { bottom: -14px; left: -22px; animation: floaty 6s var(--ease-in-out) infinite; }
+  .hero__float--2 { top: 40px; right: -18px; animation: floaty 6s var(--ease-in-out) infinite 1.5s; }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  @media (prefers-reduced-motion: reduce) { .hero__float { animation: none; } }
+
+  /* ---------- STRIP ---------- */
+  .strip { border-bottom: 1px solid var(--border-soft); background: var(--paper); }
+  .strip__inner { padding-block: var(--sp-6); display: grid; gap: var(--sp-4); }
+  .strip__label { text-align: center; font-size: var(--text-sm); color: var(--text-subtle); font-weight: 500; }
+  .strip__logos { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-3) var(--sp-6); }
+  .strip__logos li { font-family: var(--font-display); font-size: var(--text-base); font-weight: 500; color: var(--ink-400); letter-spacing: -.01em; }
+
+  /* ---------- PROBLEM ---------- */
+  .problem__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .problem__lead h2 { margin-top: var(--sp-4); }
+  .problem__lead .lead { margin-bottom: var(--sp-5); }
+  .leaks { display: grid; gap: var(--sp-3); }
+  .leak { display: flex; gap: var(--sp-4); padding: var(--sp-5); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out); }
+  .leak:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .leak__ic { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; }
+  .leak__ic--red { background: var(--red-100); color: var(--red-600); }
+  .leak__ic--amber { background: var(--amber-100); color: var(--amber-600); }
+  .leak__ic--blue { background: var(--blue-50); color: var(--blue-700); }
+  .leak__ic--ink { background: var(--ink-100); color: var(--ink-700); }
+  .leak b { font-size: var(--text-md); color: var(--ink-900); }
+  .leak p { font-size: var(--text-base); color: var(--text-muted); margin-top: 3px; }
+
+  /* ---------- PILLARS ---------- */
+  .pillars__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); margin-top: var(--sp-8); }
+  .pillar { padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); position: relative; overflow: hidden; }
+  .pillar::after { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--grad-brand); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-slow) var(--ease-out); }
+  .pillar:hover::after { transform: scaleX(1); }
+  .pillar__ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(160deg, var(--blue-50), var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-4); }
+  .pillar h3 { font-size: var(--text-xl); }
+  .pillar p { margin-top: var(--sp-2); font-size: var(--text-base); color: var(--text-muted); }
+
+  /* ---------- BENTO ---------- */
+  .showcase__head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-5); margin-bottom: var(--sp-8); }
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4); }
+  .bento__feature { grid-column: span 4; display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); align-items: center; padding: clamp(1.75rem, 4vw, 3rem); background: linear-gradient(160deg, #f6f9fe, #eef3fb); border: 1px solid var(--border-soft); border-radius: var(--r-xl); }
+  .bento__feature-copy .pill { margin-bottom: var(--sp-4); }
+  .bento__feature-copy h3 { font-size: var(--text-2xl); }
+  .bento__feature-copy p { margin: var(--sp-3) 0 var(--sp-5); color: var(--text-muted); font-size: var(--text-lg); }
+  .qcard { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4); box-shadow: var(--shadow-lg); display: grid; gap: 4px; }
+  .qcard__row { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 10px; padding: 11px 10px; border-radius: 10px; font-size: var(--text-sm); font-weight: 500; color: var(--ink-700); }
+  .qcard__row:hover { background: var(--ink-50); }
+  .qcard__row.is-dim { opacity: .62; }
+  .qcard__row b { font-weight: 700; color: var(--ink-900); }
+  .qcard__dot { width: 8px; height: 8px; border-radius: 50%; }
+  .qcard__dot.ok { background: var(--green-500); } .qcard__dot.warn { background: var(--amber-500); }
+  .qcard__dot.info { background: var(--blue-500); } .qcard__dot.bad { background: var(--red-500); }
+  .qtag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: var(--r-pill); }
+  .qtag.ok { background: var(--green-100); color: var(--green-600); } .qtag.warn { background: var(--amber-100); color: var(--amber-600); }
+  .qtag.info { background: var(--blue-50); color: var(--blue-700); } .qtag.bad { background: var(--red-100); color: var(--red-600); }
+
+  .bento__card { grid-column: span 1; position: relative; padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-xl); box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur); overflow: hidden; }
+  .bento__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border); }
+  .bento__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--ink-50); color: var(--blue-600); margin-bottom: var(--sp-4); transition: background var(--dur), color var(--dur); }
+  .bento__card:hover .bento__ic { background: var(--blue-600); color: #fff; }
+  .bento__card h4 { font-size: var(--text-lg); }
+  .bento__card p { margin-top: var(--sp-2); font-size: var(--text-sm); color: var(--text-muted); line-height: 1.55; }
+  .bento__go { position: absolute; top: var(--sp-5); right: var(--sp-5); color: var(--ink-300); transition: transform var(--dur) var(--ease-out), color var(--dur); }
+  .bento__card:hover .bento__go { color: var(--blue-600); transform: translate(2px, -2px); }
+
+  .roadmap { margin-top: var(--sp-6); padding: var(--sp-5) var(--sp-6); background: var(--ink-50); border: 1px dashed var(--border); border-radius: var(--r-lg); display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6); align-items: center; }
+  .roadmap__label { font-size: var(--text-sm); font-weight: 600; color: var(--ink-500); }
+  .roadmap ul { display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6); }
+  .roadmap li { display: inline-flex; align-items: center; gap: 10px; }
+  .roadmap__desc { font-size: var(--text-sm); color: var(--text-subtle); }
+
+  /* ---------- HOW IT WORKS ---------- */
+  .howworks { position: relative; overflow: hidden; }
+  .howworks__glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 0%, rgba(16,181,166,.14), transparent 55%); }
+  .howworks .container { position: relative; z-index: 2; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); margin-top: var(--sp-8); }
+  .step { position: relative; padding-top: var(--sp-6); }
+  .step__n { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; letter-spacing: .1em; color: var(--teal-400); }
+  .step h3 { color: #fff; font-size: var(--text-xl); margin-top: var(--sp-3); }
+  .step p { color: #93a8bf; font-size: var(--text-base); margin-top: var(--sp-3); }
+  .step__line { position: absolute; top: calc(var(--sp-6) + 8px); right: -8px; width: 16px; height: 1px; background: var(--navy-line); }
+  .step::before { content: ""; position: absolute; top: var(--sp-6); left: 0; width: 34px; height: 2px; background: var(--grad-brand); }
+
+  /* ---------- INDUSTRIES ---------- */
+  .indtab { margin-top: var(--sp-8); }
+  .indtab__tabs { display: flex; flex-wrap: wrap; gap: var(--sp-2); border-bottom: 1px solid var(--border); padding-bottom: var(--sp-4); margin-bottom: var(--sp-7); }
+  .indtab__tab { padding: 9px 18px; border-radius: var(--r-pill); font-size: var(--text-base); font-weight: 600; color: var(--ink-500); transition: all var(--dur) var(--ease-out); }
+  .indtab__tab:hover { color: var(--ink-900); background: var(--ink-50); }
+  .indtab__tab.is-on { color: #fff; background: var(--ink-900); }
+  .indtab__panel { display: none; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .indtab__panel.is-on { display: grid; animation: fadeUp var(--dur-slow) var(--ease-out); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .indtab__copy h3 { font-size: var(--text-2xl); }
+  .indtab__copy p { margin: var(--sp-4) 0; color: var(--text-muted); font-size: var(--text-lg); }
+  .indtab__points { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin-bottom: var(--sp-6); }
+  .indtab__points li { display: flex; align-items: center; gap: 9px; font-size: var(--text-base); color: var(--ink-700); }
+  .indtab__points :global(svg) { color: var(--teal-600); flex-shrink: 0; }
+  .indtab__media { position: relative; }
+  .indtab__stat { position: absolute; right: -16px; bottom: -16px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); box-shadow: var(--shadow-lg); text-align: center; }
+  .indtab__stat b { display: block; font-family: var(--font-display); font-size: var(--text-2xl); color: var(--blue-600); letter-spacing: -.02em; }
+  .indtab__stat span { font-size: var(--text-xs); color: var(--text-muted); max-width: 16ch; display: block; }
+
+  /* ---------- PROOF ---------- */
+  .proof__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .proof__quote { position: relative; margin-top: var(--sp-4); }
+  .proof__qmark { color: var(--blue-200); margin-bottom: var(--sp-3); }
+  .proof__quote p { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 400; line-height: 1.35; letter-spacing: -.02em; color: var(--ink-900); }
+  .proof__by { margin-top: var(--sp-6); }
+  .proof__by b { display: block; font-size: var(--text-md); }
+  .proof__by span { font-size: var(--text-base); color: var(--text-muted); }
+  .proof__stats { display: flex; gap: var(--sp-7); margin-top: var(--sp-7); padding-top: var(--sp-6); border-top: 1px solid var(--border); }
+  .proof__stats b { font-family: var(--font-display); font-size: var(--text-3xl); color: var(--ink-900); letter-spacing: -.03em; }
+  .proof__stats span { display: block; font-size: var(--text-sm); color: var(--text-muted); margin-top: 4px; max-width: 18ch; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1000px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__visual { max-width: 620px; }
+    .hero__float--2 { right: 10px; }
+  }
+  @media (max-width: 900px) {
+    .problem__grid, .bento, .indtab__panel, .proof__grid { grid-template-columns: 1fr; }
+    .pillars__row { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+    .bento__feature, .bento__card { grid-column: span 1; }
+    .bento__feature { grid-template-columns: 1fr; }
+    .showcase__head { flex-direction: column; align-items: flex-start; }
+    .step__line { display: none; }
+    .proof__stats { gap: var(--sp-5); }
+  }
+  @media (max-width: 540px) {
+    .pillars__row, .steps, .indtab__points { grid-template-columns: 1fr; }
+    .hero__float { display: none; }
+    .proof__stats { flex-wrap: wrap; gap: var(--sp-4); }
+  }
+</style>
+
+<script>
+  function initIndTabs() {
+    document.querySelectorAll("[data-indtab]").forEach((root) => {
+      const tabs = root.querySelectorAll<HTMLButtonElement>(".indtab__tab");
+      const panels = root.querySelectorAll<HTMLElement>(".indtab__panel");
+      tabs.forEach((tab) => tab.addEventListener("click", () => {
+        const key = tab.dataset.tab;
+        tabs.forEach((t) => { t.classList.toggle("is-on", t === tab); t.setAttribute("aria-selected", String(t === tab)); });
+        panels.forEach((p) => p.classList.toggle("is-on", p.dataset.panel === key));
+      }));
+    });
+  }
+  initIndTabs();
+  document.addEventListener("astro:page-load", initIndTabs);
+</script>

@@ -1,0 +1,34 @@
+---
+interface Props { variant?: "dark" | "light"; class?: string; showWord?: boolean; }
+const { variant = "dark", class: cls = "", showWord = true } = Astro.props;
+const word = variant === "light" ? "#ffffff" : "var(--ink-900)";
+const uid = "lg" + Math.random().toString(36).slice(2, 8);
+---
+<a href="/" class={`logo ${cls}`} aria-label="Bvive — home">
+  <span class="logo__mark" aria-hidden="true">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <defs>
+        <linearGradient id={uid} x1="4" y1="4" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1f63e8"/>
+          <stop offset="1" stop-color="#10b5a6"/>
+        </linearGradient>
+      </defs>
+      <rect x="1" y="1" width="32" height="32" rx="9.5" fill={`url(#${uid})`}/>
+      <rect x="1" y="1" width="32" height="32" rx="9.5" fill="none" stroke="rgba(255,255,255,.14)"/>
+      <!-- recovery arc + upward return -->
+      <path d="M11 20.5a6 6 0 1 0 1.9-4.4" stroke="#fff" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+      <path d="M11 12.6v3.9h3.9" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </span>
+  {showWord && <span class="logo__word" style={`color:${word}`}>Bvive</span>}
+</a>
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo__mark { display: inline-flex; filter: drop-shadow(0 6px 14px rgba(14,76,192,.28)); }
+  .logo__word {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.375rem;
+    letter-spacing: -0.03em;
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Icon from "../../components/Icon.astro";
+import CTASection from "../../components/CTASection.astro";
+import { solutions, pillars } from "../../data/site";
+const byPillar = (key: string) => solutions.filter((s) => s.pillar === key);
+---
+<Layout title="Solutions" description="Payment recovery, arrears, cancellations, customer lifecycle, analytics and staff workflow — the revenue moments Bvive brings into one platform.">
+  <PageHero
+    eyebrow="Solutions"
+    title="The revenue moments that usually fall through the cracks"
+    sub="Each Bvive solution targets a specific point where recurring revenue leaks — and turns it into an owned, trackable, reportable workflow."
+    crumb={{ label: "Home", href: "/" }}
+  >
+    <a href="/book-demo" class="btn btn--primary">Book a Demo <Icon name="arrow" size={17} class="btn__icon" /></a>
+    <a href="/calculator" class="btn btn--ghost">Estimate your leakage</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      {pillars.map((p) => byPillar(p.key).length > 0 && (
+        <div class="grp" data-reveal>
+          <div class="grp__head">
+            <span class="grp__ic"><Icon name={p.icon} size={20} /></span>
+            <div><h2>{p.title}</h2><p>{p.body}</p></div>
+          </div>
+          <div class="grp__row">
+            {byPillar(p.key).map((s) => (
+              <a href={`/solutions/${s.slug}`} class="scard">
+                <div class="scard__top">
+                  <span class="scard__ic"><Icon name={p.icon} size={18} /></span>
+                  <span class="scard__go"><Icon name="arrow-up-right" size={16} /></span>
+                </div>
+                <h3>{s.eyebrow}</h3>
+                <p>{s.sub}</p>
+                <span class="scard__link">Learn more <Icon name="arrow" size={14} /></span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTASection />
+</Layout>
+
+<style>
+  .grp { margin-bottom: var(--sp-11); }
+  .grp:last-child { margin-bottom: 0; }
+  .grp__head { display: flex; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-6); padding-bottom: var(--sp-5); border-bottom: 1px solid var(--border); }
+  .grp__ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: linear-gradient(160deg, var(--blue-50), var(--teal-50)); color: var(--blue-600); flex-shrink: 0; }
+  .grp__head h2 { font-size: var(--text-2xl); }
+  .grp__head p { color: var(--text-muted); margin-top: 2px; }
+  .grp__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
+  .scard { display: flex; flex-direction: column; padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur); }
+  .scard:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border); }
+  .scard__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-4); }
+  .scard__ic { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--ink-50); color: var(--blue-600); }
+  .scard__go { color: var(--ink-300); transition: transform var(--dur) var(--ease-out), color var(--dur); }
+  .scard:hover .scard__go { color: var(--blue-600); transform: translate(2px,-2px); }
+  .scard h3 { font-size: var(--text-lg); }
+  .scard p { margin-top: var(--sp-2); font-size: var(--text-base); color: var(--text-muted); flex: 1; }
+  .scard__link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--sp-5); font-size: var(--text-sm); font-weight: 600; color: var(--blue-600); }
+  @media (max-width: 900px) { .grp__row { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,167 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import SolutionMock from "../components/mock/SolutionMock.astro";
+import Calculator from "../components/Calculator.astro";
+import CTASection from "../components/CTASection.astro";
+import { modules, pillars, howItWorks } from "../data/site";
+const live = modules.filter((m) => m.status !== "roadmap");
+const roadmap = modules.filter((m) => m.status === "roadmap");
+const solutionSlugs = new Set(["payment-recovery","arrears-management","cancellation-management","customer-lifecycle","staff-workflow","analytics"]);
+const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}` : (slug === "security" ? "/security" : "/platform");
+---
+<Layout title="Platform" description="One operating system for the recurring-revenue lifecycle: payment recovery, arrears, cancellations, CRM, tasks, analytics and security.">
+  <!-- Hero -->
+  <section class="phhero">
+    <span class="phhero__bg" aria-hidden="true"></span>
+    <span class="phhero__grid" aria-hidden="true"></span>
+    <div class="container phhero__inner">
+      <div class="phhero__copy" data-reveal>
+        <span class="eyebrow">The platform</span>
+        <h1>One platform to manage the revenue moments that usually fall through the cracks</h1>
+        <p class="phhero__sub">Bring payment recovery, customer notes, cancellation workflows, staff tasks and reporting into one operating system for recurring-revenue businesses.</p>
+        <div class="phhero__cta">
+          <a href="/book-demo" class="btn btn--primary btn--lg">Book a Demo <Icon name="arrow" size={18} class="btn__icon" /></a>
+          <a href="#modules" class="btn btn--on-navy btn--lg">Explore modules</a>
+        </div>
+      </div>
+      <div class="phhero__mock" data-reveal><SolutionMock variant="analytics" /></div>
+    </div>
+  </section>
+
+  <!-- Pillars band -->
+  <section class="section">
+    <div class="container">
+      <div class="phpillars" data-reveal>
+        {pillars.map((p) => (
+          <div class="phpillar">
+            <span class="phpillar__ic"><Icon name={p.icon} size={20} /></span>
+            <b>{p.title}</b>
+            <span>{p.body}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="section section--tint" id="modules">
+    <div class="container">
+      <div class="heading-block" data-reveal><span class="eyebrow">Modules</span><h2>Everything connected to one customer record</h2><p class="lead">Start with one workflow and switch on more as your team is ready — every module shares the same data.</p></div>
+      <div class="modgrid" data-reveal>
+        {live.map((m) => (
+          <a href={modHref(m.slug)} class="modcard">
+            <span class="modcard__ic"><Icon name={m.icon} size={20} /></span>
+            <div class="modcard__t"><h3>{m.name}</h3><span class={`pill pill--${m.pillar === "recover" ? "recovery" : "tint"}`}>{m.tag}</span></div>
+            <p>{m.summary}</p>
+          </a>
+        ))}
+      </div>
+      <div class="roadmap" data-reveal>
+        <span class="roadmap__label">On the roadmap</span>
+        <ul>{roadmap.map((m) => <li><span class="pill pill--roadmap"><span class="dot"></span> {m.name}</span> <span class="roadmap__desc">{m.summary}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section section--navy howworks">
+    <span class="howworks__glow" aria-hidden="true"></span>
+    <div class="container">
+      <div class="heading-block" data-reveal><span class="eyebrow">How it works</span><h2>From scattered admin to accountable workflow</h2></div>
+      <ol class="steps" data-reveal>
+        {howItWorks.map((s, i) => (
+          <li class="step"><span class="step__n">{s.n}</span><h3>{s.title}</h3><p>{s.body}</p>{i < howItWorks.length - 1 && <span class="step__line"></span>}</li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Integrations + Security -->
+  <section class="section" id="integrations">
+    <div class="container">
+      <div class="twocol" data-reveal>
+        <div class="twocol__card">
+          <span class="twocol__ic"><Icon name="layers" size={22} /></span>
+          <h3>Sits beside your payment provider</h3>
+          <p>Bvive is the workflow and visibility layer around your recurring payment process. It complements your existing direct-debit gateway and customer tools — it doesn't replace them.</p>
+          <ul class="twocol__list">
+            <li><Icon name="check" size={15} /> Works alongside your current provider</li>
+            <li><Icon name="check" size={15} /> Import support where available</li>
+            <li><Icon name="check" size={15} /> Guided, staged onboarding</li>
+          </ul>
+        </div>
+        <div class="twocol__card twocol__card--dark">
+          <span class="twocol__ic twocol__ic--dark"><Icon name="shield" size={22} /></span>
+          <h3>Security &amp; permissions by design</h3>
+          <p>Role-based access and permission controls mean staff only see what they need. Bvive supports compliant, respectful communication workflows across sensitive financial follow-up.</p>
+          <a href="/security" class="link-arrow">Read about security <Icon name="arrow" size={16} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Calculator />
+  <CTASection />
+</Layout>
+
+<style>
+  .phhero { position: relative; overflow: hidden; background: var(--navy-900); color: #cdd8e6; padding-block: clamp(3rem, 6vw, 5rem); }
+  .phhero__bg { position: absolute; inset: 0; background: radial-gradient(70% 60% at 85% 0%, rgba(16,181,166,.16), transparent 55%), radial-gradient(60% 60% at 5% 10%, rgba(31,99,232,.22), transparent 55%), linear-gradient(180deg,#071a2e,#050e1c); }
+  .phhero__grid { position: absolute; inset: 0; opacity: .45; background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(85% 75% at 50% 0%,#000,transparent); mask-image: radial-gradient(85% 75% at 50% 0%,#000,transparent); }
+  .phhero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4rem); align-items: center; }
+  .phhero h1 { color: #fff; font-size: var(--text-4xl); margin-top: var(--sp-3); }
+  .phhero__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: #9fb4cb; }
+  .phhero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-7); }
+
+  .phpillars { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-4); }
+  .phpillar { display: flex; flex-direction: column; gap: 6px; padding: var(--sp-5); border-radius: var(--r-lg); border: 1px solid var(--border-soft); background: var(--white); box-shadow: var(--shadow-xs); }
+  .phpillar__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(160deg,var(--blue-50),var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-2); }
+  .phpillar b { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: -.01em; }
+  .phpillar span { font-size: var(--text-sm); color: var(--text-muted); }
+
+  .modgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-4); margin-top: var(--sp-8); }
+  .modcard { padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur); }
+  .modcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .modcard__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--ink-50); color: var(--blue-600); margin-bottom: var(--sp-4); }
+  .modcard__t { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+  .modcard__t h3 { font-size: var(--text-lg); }
+  .modcard p { margin-top: var(--sp-3); font-size: var(--text-base); color: var(--text-muted); }
+
+  .roadmap { margin-top: var(--sp-6); padding: var(--sp-5) var(--sp-6); background: var(--white); border: 1px dashed var(--border); border-radius: var(--r-lg); display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6); align-items: center; }
+  .roadmap__label { font-size: var(--text-sm); font-weight: 600; color: var(--ink-500); }
+  .roadmap ul { display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6); }
+  .roadmap li { display: inline-flex; align-items: center; gap: 10px; }
+  .roadmap__desc { font-size: var(--text-sm); color: var(--text-subtle); }
+
+  .howworks { position: relative; overflow: hidden; }
+  .howworks__glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 0%, rgba(16,181,166,.14), transparent 55%); }
+  .howworks .container { position: relative; z-index: 2; }
+  .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-5); margin-top: var(--sp-8); }
+  .step { position: relative; padding-top: var(--sp-6); }
+  .step::before { content: ""; position: absolute; top: var(--sp-6); left: 0; width: 34px; height: 2px; background: var(--grad-brand); }
+  .step__n { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; letter-spacing: .1em; color: var(--teal-400); }
+  .step h3 { color: #fff; font-size: var(--text-xl); margin-top: var(--sp-3); }
+  .step p { color: #93a8bf; font-size: var(--text-base); margin-top: var(--sp-3); }
+  .step__line { position: absolute; top: calc(var(--sp-6) + 8px); right: -8px; width: 16px; height: 1px; background: var(--navy-line); }
+
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+  .twocol__card { padding: clamp(1.75rem,4vw,2.75rem); border-radius: var(--r-xl); border: 1px solid var(--border-soft); background: var(--white); box-shadow: var(--shadow-sm); }
+  .twocol__card--dark { background: radial-gradient(120% 120% at 100% 0%, #0e3358, #071a2e 65%); color: #cdd8e6; border-color: var(--navy-line); }
+  .twocol__ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: linear-gradient(160deg,var(--blue-50),var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-5); }
+  .twocol__ic--dark { background: rgba(16,181,166,.16); color: var(--teal-400); }
+  .twocol__card h3 { font-size: var(--text-2xl); }
+  .twocol__card--dark h3 { color: #fff; }
+  .twocol__card p { margin-top: var(--sp-4); font-size: var(--text-base); color: var(--text-muted); }
+  .twocol__card--dark p { color: #9fb4cb; }
+  .twocol__list { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); }
+  .twocol__list li { display: flex; align-items: center; gap: 10px; font-size: var(--text-base); color: var(--ink-700); }
+  .twocol__list :global(svg) { color: var(--teal-600); }
+
+  @media (max-width: 900px) {
+    .phhero__inner, .twocol { grid-template-columns: 1fr; }
+    .phpillars, .modgrid, .steps { grid-template-columns: 1fr 1fr; }
+    .step__line { display: none; }
+  }
+  @media (max-width: 560px) { .phpillars, .modgrid, .steps { grid-template-columns: 1fr; } }
+</style>

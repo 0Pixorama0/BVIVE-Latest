@@ -1,0 +1,91 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { site, footerNav } from "../data/site";
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container--wide">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Logo variant="light" />
+        <p class="footer__tag">Recover Payments. Retain Customers.<br />Protect Cash Flow.</p>
+        <p class="footer__desc">
+          The revenue recovery and customer lifecycle platform for Australian
+          direct-debit and recurring-revenue businesses.
+        </p>
+        <a href="/book-demo" class="btn btn--primary btn--sm footer__cta">
+          Book a Demo <Icon name="arrow" size={16} class="btn__icon" />
+        </a>
+      </div>
+      <div class="footer__cols">
+        {footerNav.map((col) => (
+          <div class="footer__col">
+            <h4 class="footer__h">{col.title}</h4>
+            <ul>
+              {col.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__legal">© {year} {site.name}. All rights reserved.
+        <span class="footer__note">Bvive is a revenue recovery and customer lifecycle platform. It complements existing payment and customer workflows and is not a payment processor or debt collection agency.</span>
+      </p>
+      <nav class="footer__meta" aria-label="Legal">
+        <a href="/security">Security</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+  <div class="footer__wordmark" aria-hidden="true">Bvive</div>
+</footer>
+
+<style>
+  .footer {
+    position: relative; overflow: hidden;
+    background: var(--navy-950); color: #93a4ba;
+    padding-top: var(--sp-11);
+  }
+  .footer__top {
+    display: grid; grid-template-columns: 1.3fr 2fr; gap: var(--sp-9);
+    padding-bottom: var(--sp-9);
+  }
+  .footer__tag { margin-top: var(--sp-5); font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; color: #fff; letter-spacing: -.02em; line-height: 1.25; }
+  .footer__desc { margin-top: var(--sp-4); max-width: 34ch; font-size: var(--text-base); color: #7f92aa; }
+  .footer__cta { margin-top: var(--sp-5); }
+  .footer__cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); }
+  .footer__h { font-family: var(--font-sans); font-size: var(--text-sm); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #6a7d96; margin-bottom: var(--sp-4); }
+  .footer__col ul { display: grid; gap: 10px; }
+  .footer__col a { font-size: var(--text-base); color: #b6c4d6; transition: color var(--dur) var(--ease-out); }
+  .footer__col a:hover { color: #fff; }
+
+  .footer__bottom {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-5);
+    padding: var(--sp-6) 0; border-top: 1px solid var(--navy-line);
+  }
+  .footer__legal { font-size: var(--text-sm); color: #6a7d96; max-width: 60ch; }
+  .footer__note { display: block; margin-top: 6px; font-size: var(--text-xs); color: #56697f; line-height: 1.5; }
+  .footer__meta { display: flex; gap: var(--sp-5); flex-shrink: 0; }
+  .footer__meta a { font-size: var(--text-sm); color: #93a4ba; }
+  .footer__meta a:hover { color: #fff; }
+
+  .footer__wordmark {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(5rem, 20vw, 18rem); line-height: .8;
+    letter-spacing: -.04em; text-align: center;
+    color: #0b1d33; user-select: none;
+    margin-bottom: -0.12em; padding-top: var(--sp-4);
+  }
+
+  @media (max-width: 860px) {
+    .footer__top { grid-template-columns: 1fr; gap: var(--sp-7); }
+    .footer__cols { grid-template-columns: repeat(2, 1fr); gap: var(--sp-6); }
+    .footer__bottom { flex-direction: column; }
+  }
+  @media (max-width: 460px) { .footer__cols { grid-template-columns: 1fr 1fr; } }
+</style>

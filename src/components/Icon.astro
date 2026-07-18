@@ -1,0 +1,57 @@
+---
+/* Custom line-icon set — 24×24, 1.6 stroke, currentColor. */
+interface Props { name: string; size?: number; class?: string; stroke?: number; }
+const { name, size = 24, class: cls = "", stroke = 1.6 } = Astro.props;
+
+const paths: Record<string, string> = {
+  // pillars
+  recover: '<path d="M4 12a8 8 0 1 1 2.34 5.66"/><path d="M4 20v-4h4"/><path d="M12 8v4l3 2"/>',
+  retain: '<path d="M12 21s-7-4.35-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9Z"/>',
+  control: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/>',
+  decide: '<path d="M3 3v18h18"/><path d="M7 15l3.5-4 3 2.5L21 7"/>',
+  // modules
+  arrears: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/>',
+  crm: '<circle cx="12" cy="8" r="3.2"/><path d="M5 20a7 7 0 0 1 14 0"/>',
+  tasks: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7.5 9l1.8 1.8L12 8M7.5 15l1.8 1.8L12 14"/><path d="M14 9.5h4M14 15.5h4"/>',
+  analytics: '<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6" rx=".6"/><rect x="12.5" y="7" width="3" height="10" rx=".6"/><rect x="18" y="13" width="0" height="4"/>',
+  leads: '<path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/>',
+  shield: '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z"/><path d="M9 12l2 2 4-4"/>',
+  commission: '<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.2a2.5 2 0 0 1 5 .3c0 2.5-5 1.5-5 4a2.5 2 0 0 0 5 .3"/>',
+  ai: '<rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
+  // ui
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  "arrow-up-right": '<path d="M7 17L17 7M8 7h9v9"/>',
+  check: '<path d="M4 12.5l5 5 11-11"/>',
+  "check-circle": '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  minus: '<path d="M5 12h14"/>',
+  menu: '<path d="M3 6h18M3 12h18M3 18h18"/>',
+  close: '<path d="M6 6l12 12M18 6L6 18"/>',
+  spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/>',
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  layers: '<path d="M12 3l9 5-9 5-9-5 9-5Z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/>',
+  refresh: '<path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>',
+  phone: '<path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2Z"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  pin: '<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/>',
+  dollar: '<path d="M12 3v18M8 7.5a3 2.5 0 0 1 6 .4c0 3-6 1.8-6 5a3 2.5 0 0 0 6 .4"/>',
+  users: '<circle cx="9" cy="9" r="3"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17 14a6.5 6.5 0 0 1 4.5 6"/>',
+  gauge: '<path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 14l4-3"/>',
+  play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5Z" fill="currentColor" stroke="none"/>',
+  quote: '<path d="M9 7H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v3H4M19 7h-4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v3h-3"/>',
+  building: '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1M10 21v-3h4v3"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 0 2 2h13"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+};
+const d = paths[name] ?? paths["spark"];
+---
+<svg
+  class={cls}
+  width={size} height={size} viewBox="0 0 24 24" fill="none"
+  stroke="currentColor" stroke-width={stroke}
+  stroke-linecap="round" stroke-linejoin="round"
+  aria-hidden="true" set:html={d}
+/>

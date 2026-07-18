@@ -1,0 +1,138 @@
+---
+import Icon from "./Icon.astro";
+interface Props { eyebrow?: string; heading?: string; }
+const { eyebrow = "Revenue leakage calculator", heading = "See what failed payments are quietly costing you" } = Astro.props;
+---
+<section class="section calc" id="calculator">
+  <div class="container">
+    <div class="calc__head heading-block" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+      <p class="lead">Adjust the inputs to model your recurring revenue. This is a directional estimate to size the opportunity — not a guarantee of results.</p>
+    </div>
+
+    <div class="calc__grid" data-reveal>
+      <form class="calc__controls" id="calc-form">
+        <div class="field">
+          <label>Recurring customers <output id="o-cust">2,000</output></label>
+          <input type="range" id="i-cust" min="200" max="10000" step="100" value="2000" />
+        </div>
+        <div class="field">
+          <label>Average debit amount <output id="o-amt">$60</output></label>
+          <input type="range" id="i-amt" min="20" max="400" step="5" value="60" />
+        </div>
+        <div class="field">
+          <span class="field__label">Billing frequency</span>
+          <div class="seg" role="radiogroup" aria-label="Billing frequency">
+            <button type="button" class="seg__btn" data-freq="4.33">Weekly</button>
+            <button type="button" class="seg__btn is-on" data-freq="2.17">Fortnightly</button>
+            <button type="button" class="seg__btn" data-freq="1">Monthly</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Failed payment rate <output id="o-fail">6%</output></label>
+          <input type="range" id="i-fail" min="1" max="15" step="0.5" value="6" />
+        </div>
+        <div class="field">
+          <label>Currently recovered <output id="o-rec">45%</output></label>
+          <input type="range" id="i-rec" min="0" max="90" step="5" value="45" />
+        </div>
+        <p class="calc__note"><Icon name="shield" size={14} /> Nothing is stored. Numbers stay in your browser.</p>
+      </form>
+
+      <aside class="calc__result">
+        <span class="calc__glow" aria-hidden="true"></span>
+        <div class="calc__result-in">
+          <p class="calc__k">Estimated revenue at risk</p>
+          <p class="calc__big tnum" id="r-risk">$0</p>
+          <p class="calc__sub">per year, from failed debits alone</p>
+
+          <div class="calc__split">
+            <div>
+              <p class="calc__k">Additional recovery <span>with a consistent workflow*</span></p>
+              <p class="calc__mid tnum grad-num" id="r-extra">$0</p>
+            </div>
+            <div>
+              <p class="calc__k">Admin time saved</p>
+              <p class="calc__mid tnum" id="r-hours">0 hrs<span class="calc__u">/mo</span></p>
+            </div>
+          </div>
+
+          <a href="/book-demo" class="btn btn--primary btn--block btn--lg">Book a demo to recover it <Icon name="arrow" size={18} class="btn__icon" /></a>
+          <p class="calc__disc">*Models an achievable 80% recovery rate versus your current rate. Actual results depend on your customers, process and follow-up. Bvive does not guarantee recovery outcomes.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .calc__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--sp-6); margin-top: var(--sp-8); align-items: stretch; }
+  .calc__controls { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: var(--sp-6); }
+  .field { display: flex; flex-direction: column; gap: 12px; }
+  .field label, .field__label { display: flex; align-items: center; justify-content: space-between; font-size: var(--text-base); font-weight: 600; color: var(--ink-800); }
+  .field output { font-family: var(--font-display); font-size: var(--text-lg); color: var(--blue-600); font-variant-numeric: tabular-nums; }
+  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 999px; background: var(--ink-100); cursor: pointer; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--blue-600); box-shadow: var(--shadow-md); transition: transform var(--dur) var(--ease-out); }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.12); }
+  input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--blue-600); box-shadow: var(--shadow-md); }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: var(--ink-50); border: 1px solid var(--border-soft); border-radius: var(--r-md); padding: 4px; }
+  .seg__btn { padding: 9px; border-radius: 9px; font-size: var(--text-sm); font-weight: 600; color: var(--ink-500); transition: all var(--dur) var(--ease-out); }
+  .seg__btn.is-on { background: var(--white); color: var(--ink-900); box-shadow: var(--shadow-sm); }
+  .calc__note { display: inline-flex; align-items: center; gap: 7px; font-size: var(--text-sm); color: var(--ink-400); margin-top: auto; }
+
+  .calc__result { position: relative; overflow: hidden; border-radius: var(--r-xl); background: radial-gradient(120% 120% at 100% 0%, #0e3358, #071a2e 60%, #050e1c); color: #fff; box-shadow: var(--shadow-xl); }
+  .calc__glow { position: absolute; inset: 0; background: var(--grad-glow); }
+  .calc__result-in { position: relative; z-index: 2; padding: clamp(1.75rem, 3vw, 2.5rem); display: flex; flex-direction: column; height: 100%; }
+  .calc__k { font-size: var(--text-sm); color: #8ba3bb; font-weight: 500; }
+  .calc__k span { color: #6f849c; font-weight: 400; }
+  .calc__big { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 3.6rem); font-weight: 600; letter-spacing: -.03em; color: #fff; line-height: 1; margin-top: 6px; }
+  .calc__sub { font-size: var(--text-sm); color: #6f849c; margin-top: 6px; }
+  .calc__split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); margin: var(--sp-6) 0; padding: var(--sp-5) 0; border-top: 1px solid var(--navy-line); border-bottom: 1px solid var(--navy-line); }
+  .calc__mid { font-family: var(--font-display); font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 600; letter-spacing: -.02em; margin-top: 6px; }
+  .calc__u { font-size: var(--text-sm); color: #6f849c; font-weight: 400; margin-left: 2px; }
+  .grad-num { background: var(--grad-recovered); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .calc__disc { font-size: 11.5px; color: #56697f; line-height: 1.5; margin-top: var(--sp-4); }
+  .btn--block.btn--lg { margin-top: auto; }
+
+  @media (max-width: 860px) { .calc__grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  function initCalc() {
+    const form = document.getElementById("calc-form");
+    if (!form) return;
+    const $ = (id: string) => document.getElementById(id) as HTMLElement | null;
+    const cust = $("i-cust") as HTMLInputElement, amt = $("i-amt") as HTMLInputElement,
+          fail = $("i-fail") as HTMLInputElement, rec = $("i-rec") as HTMLInputElement;
+    let freq = 2.17;
+    const fmt = (n: number) => "$" + Math.round(n).toLocaleString("en-AU");
+    const fmtK = (n: number) => n >= 1000 ? "$" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "k" : "$" + Math.round(n);
+
+    function update() {
+      const N = +cust.value, A = +amt.value, f = +fail.value / 100, r = +rec.value / 100;
+      const failedPerMonth = N * freq * f;
+      const atRiskMonth = failedPerMonth * A;
+      const atRiskYear = atRiskMonth * 12;
+      const target = 0.80;
+      const extraYear = atRiskYear * Math.max(0, target - r);
+      const hours = (failedPerMonth * 6) / 60; // ~6 min manual admin saved per failed payment
+
+      ($("o-cust") as HTMLElement).textContent = N.toLocaleString("en-AU");
+      ($("o-amt") as HTMLElement).textContent = "$" + A;
+      ($("o-fail") as HTMLElement).textContent = fail.value + "%";
+      ($("o-rec") as HTMLElement).textContent = rec.value + "%";
+      ($("r-risk") as HTMLElement).textContent = fmt(atRiskYear);
+      ($("r-extra") as HTMLElement).textContent = fmtK(extraYear);
+      ($("r-hours") as HTMLElement).innerHTML = Math.round(hours).toLocaleString("en-AU") + ' hrs<span class="calc__u">/mo</span>';
+    }
+    [cust, amt, fail, rec].forEach((el) => el?.addEventListener("input", update));
+    form.querySelectorAll<HTMLButtonElement>(".seg__btn").forEach((b) => b.addEventListener("click", () => {
+      form.querySelectorAll(".seg__btn").forEach((x) => x.classList.remove("is-on"));
+      b.classList.add("is-on"); freq = parseFloat(b.dataset.freq || "2.17"); update();
+    }));
+    update();
+  }
+  initCalc();
+  document.addEventListener("astro:page-load", initCalc);
+</script>

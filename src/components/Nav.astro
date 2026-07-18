@@ -1,0 +1,173 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import { nav } from "../data/site";
+const path = Astro.url.pathname;
+const isActive = (href: string) => href !== "/" && path.startsWith(href);
+---
+<header class="nav" data-nav>
+  <div class="nav__inner container--wide">
+    <Logo />
+    <nav class="nav__links" aria-label="Primary">
+      {nav.map((item) => (
+        <div class={`nav__item ${item.children ? "has-menu" : ""}`}>
+          <a href={item.href} class={`nav__link ${isActive(item.href) ? "is-active" : ""}`} aria-haspopup={item.children ? "true" : undefined}>
+            {item.label}
+            {item.children && <Icon name="minus" size={14} class="nav__caret" />}
+          </a>
+          {item.children && (
+            <div class="mega" role="menu">
+              <div class="mega__grid">
+                {item.children.map((c) => (
+                  <a href={c.href} class="mega__link" role="menuitem">
+                    <span class="mega__label">{c.label}</span>
+                    {c.desc && <span class="mega__desc">{c.desc}</span>}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+    <div class="nav__actions">
+      <a href="/login" class="nav__login">Login</a>
+      <a href="/book-demo" class="btn btn--primary btn--sm">Book a Demo</a>
+    </div>
+    <button class="nav__burger" data-burger aria-label="Open menu" aria-expanded="false">
+      <Icon name="menu" size={22} />
+    </button>
+  </div>
+
+  <!-- Mobile panel -->
+  <div class="mobile" data-mobile hidden>
+    <div class="mobile__scroll">
+      {nav.map((item) => (
+        <details class="mobile__group">
+          <summary>
+            <a href={item.href}>{item.label}</a>
+            {item.children && <Icon name="plus" size={18} />}
+          </summary>
+          {item.children && (
+            <div class="mobile__children">
+              {item.children.map((c) => <a href={c.href}>{c.label}</a>)}
+            </div>
+          )}
+        </details>
+      ))}
+      <div class="mobile__actions">
+        <a href="/login" class="btn btn--ghost btn--block">Login</a>
+        <a href="/book-demo" class="btn btn--primary btn--block">Book a Demo</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: var(--z-nav);
+    background: rgba(251, 252, 254, 0.72);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+  .nav[data-scrolled] { border-bottom-color: var(--border); background: rgba(251,252,254,.86); }
+  .nav__inner {
+    height: var(--nav-h);
+    display: flex; align-items: center; gap: var(--sp-6);
+  }
+  .nav__links { display: flex; align-items: center; gap: 2px; margin-inline: auto; }
+  .nav__item { position: relative; }
+  .nav__link {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 0.5rem 0.75rem; border-radius: var(--r-sm);
+    font-size: var(--text-base); font-weight: 500; color: var(--ink-700);
+    transition: color var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+  .nav__link:hover, .nav__link.is-active { color: var(--ink-900); background: rgba(14,76,192,.06); }
+  .nav__caret { opacity: .5; margin-top: 1px; }
+  .has-menu:hover .nav__caret { transform: rotate(180deg); }
+
+  /* Mega menu */
+  .mega {
+    position: absolute; top: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%) translateY(6px) scale(.98);
+    min-width: 340px; padding: var(--sp-2);
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-lg);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out), visibility var(--dur);
+  }
+  .mega::before { content: ""; position: absolute; top: -12px; left: 0; right: 0; height: 12px; }
+  .has-menu:hover .mega, .has-menu:focus-within .mega {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  .mega__grid { display: grid; gap: 2px; }
+  .mega__link { display: grid; gap: 2px; padding: 0.625rem 0.75rem; border-radius: var(--r-md); transition: background var(--dur) var(--ease-out); }
+  .mega__link:hover { background: var(--ink-50); }
+  .mega__label { font-weight: 600; font-size: var(--text-base); color: var(--ink-900); }
+  .mega__desc { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.4; }
+
+  .nav__actions { display: flex; align-items: center; gap: var(--sp-4); }
+  .nav__login { font-size: var(--text-base); font-weight: 500; color: var(--ink-700); }
+  .nav__login:hover { color: var(--ink-900); }
+
+  .nav__burger { display: none; padding: 8px; margin-left: auto; color: var(--ink-800); border-radius: var(--r-sm); }
+
+  /* Mobile */
+  .mobile {
+    position: fixed; inset: var(--nav-h) 0 0; z-index: var(--z-overlay);
+    background: var(--paper);
+    animation: fade var(--dur) var(--ease-out);
+  }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .mobile__scroll { height: 100%; overflow-y: auto; padding: var(--sp-5) var(--gutter) var(--sp-9); }
+  .mobile__group { border-bottom: 1px solid var(--border-soft); }
+  .mobile__group summary {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--sp-4) 2px; list-style: none; cursor: pointer;
+  }
+  .mobile__group summary::-webkit-details-marker { display: none; }
+  .mobile__group summary a { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em; }
+  .mobile__group[open] summary :global(svg) { transform: rotate(45deg); }
+  .mobile__children { display: grid; gap: 2px; padding: 0 2px var(--sp-4); }
+  .mobile__children a { padding: 0.55rem 0; color: var(--text-muted); font-size: var(--text-lg); }
+  .mobile__actions { display: grid; gap: var(--sp-3); margin-top: var(--sp-7); }
+
+  @media (max-width: 1000px) {
+    .nav__links, .nav__actions { display: none; }
+    .nav__burger { display: inline-flex; }
+  }
+  @media (min-width: 1001px) { .mobile { display: none !important; } }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>("[data-nav]");
+  const burger = document.querySelector<HTMLButtonElement>("[data-burger]");
+  const mobile = document.querySelector<HTMLElement>("[data-mobile]");
+
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 8) nav.setAttribute("data-scrolled", "");
+    else nav.removeAttribute("data-scrolled");
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  let open = false;
+  const setMenu = (v: boolean) => {
+    open = v;
+    if (!mobile || !burger) return;
+    mobile.hidden = !v;
+    burger.setAttribute("aria-expanded", String(v));
+    burger.innerHTML = v
+      ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+      : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>';
+    document.body.style.overflow = v ? "hidden" : "";
+  };
+  burger?.addEventListener("click", () => setMenu(!open));
+  mobile?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  window.addEventListener("keydown", (e) => { if (e.key === "Escape" && open) setMenu(false); });
+</script>
