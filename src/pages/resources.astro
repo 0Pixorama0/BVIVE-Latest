@@ -8,11 +8,11 @@ import CTASection from "../components/CTASection.astro";
 const featured = {
   cat: "Guide", read: "8 min read",
   title: "The recurring-revenue leak: where direct-debit businesses quietly lose money",
-  excerpt: "A practical breakdown of the four gaps — failed payments, arrears, cancellations and follow-up — and how to close each one.",
-  label: "Editorial hero image — revenue leak concept, premium and abstract",
+  excerpt: "A practical breakdown of the four gaps (failed payments, arrears, cancellations and follow-up) and how to close each one.",
+  label: "Editorial hero image, revenue leak concept, premium and abstract",
 };
 const articles = [
-  { cat: "Failed payments", title: "Why direct debits fail — and a workflow to recover them", read: "6 min" },
+  { cat: "Failed payments", title: "Why direct debits fail, and a workflow to recover them", read: "6 min" },
   { cat: "Cancellations", title: "Turning cancellation requests into structured saves", read: "5 min" },
   { cat: "Operations", title: "Getting off spreadsheets: a staged rollout for arrears", read: "7 min" },
   { cat: "Retention", title: "The customer lifecycle map for recurring-revenue teams", read: "6 min" },
@@ -25,7 +25,7 @@ const magnets = [
   { ic: "retain", t: "Cancellation save checklist", d: "Approved pathways to turn cancellations into retained customers." },
 ];
 ---
-<Layout title="Resources" description="Guides for protecting recurring revenue — reduce failed payments, manage cancellations, improve follow-up and build a stronger operation.">
+<Layout title="Resources" description="Guides for protecting recurring revenue: reduce failed payments, manage cancellations, improve follow-up and build a stronger operation.">
   <PageHero
     eyebrow="Resources"
     title="Guides for protecting recurring revenue"
@@ -100,7 +100,7 @@ const magnets = [
 
   .magnets { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); margin-top: var(--sp-8); }
   .magnet { padding: var(--sp-7); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); }
-  .magnet__ic { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(160deg, var(--blue-50), var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-4); }
+  .magnet__ic { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(160deg, var(--blue-50), var(--green-50)); color: var(--blue-600); margin-bottom: var(--sp-4); }
   .magnet h3 { font-size: var(--text-lg); }
   .magnet p { margin: var(--sp-2) 0 var(--sp-5); font-size: var(--text-base); color: var(--text-muted); }
 

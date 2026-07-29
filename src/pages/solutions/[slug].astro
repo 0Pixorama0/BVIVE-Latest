@@ -81,7 +81,7 @@ const pillar = pillars.find((p) => p.key === sol.pillar)!;
       <div class="ladder" data-reveal>
         <span class="pill pill--tint"><Icon name={pillar.icon} size={13} /> {pillar.title}</span>
         <h2>Part of one connected platform</h2>
-        <p class="lead">This solution works alongside the rest of Bvive — so recovery, retention, operations and reporting share the same customer record.</p>
+        <p class="lead">This solution works alongside the rest of Bvive, so recovery, retention, operations and reporting share the same customer record.</p>
         <div class="ladder__row">
           {others.map((o) => (
             <a href={`/solutions/${o.slug}`} class="ladder__card">
@@ -104,10 +104,10 @@ const pillar = pillars.find((p) => p.key === sol.pillar)!;
   .ba { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); }
   .ba__card { padding: var(--sp-5); border-radius: var(--r-lg); border: 1px solid var(--border-soft); }
   .ba__card--before { background: var(--white); }
-  .ba__card--after { background: linear-gradient(160deg, var(--teal-50), var(--blue-50)); border-color: var(--teal-100); }
+  .ba__card--after { background: linear-gradient(160deg, var(--green-50), var(--blue-50)); border-color: var(--green-100); }
   .ba__tag { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-xs); font-weight: 700; letter-spacing: .03em; text-transform: uppercase; padding: 4px 10px; border-radius: var(--r-pill); margin-bottom: var(--sp-3); }
-  .ba__tag--before { background: var(--red-100); color: var(--red-600); }
-  .ba__tag--after { background: var(--teal-500); color: #fff; }
+  .ba__tag--before { background: var(--orange-100); color: var(--orange-600); }
+  .ba__tag--after { background: var(--green-500); color: #fff; }
   .ba__card p { color: var(--ink-700); font-size: var(--text-base); }
   .ba__arrow { display: grid; place-items: center; color: var(--ink-300); transform: rotate(90deg); }
   .split__metric { display: flex; align-items: baseline; gap: var(--sp-4); margin-top: var(--sp-6); padding-top: var(--sp-6); border-top: 1px solid var(--border); }

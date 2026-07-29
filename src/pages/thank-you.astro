@@ -7,12 +7,12 @@ const next = [
   { ic: "book", t: "Read the guides", d: "Practical resources on protecting recurring revenue.", href: "/resources", cta: "Browse resources" },
 ];
 ---
-<Layout title="Thank you" description="Thanks — your request is in. The Bvive team will be in touch shortly.">
+<Layout title="Thank you" description="Thanks, your request is in. The Bvive team will be in touch shortly.">
   <section class="ty">
     <span class="ty__bg" aria-hidden="true"></span>
     <div class="container ty__inner">
       <span class="ty__check"><Icon name="check" size={34} /></span>
-      <h1>Thanks — your request is in</h1>
+      <h1>Thanks, your request is in</h1>
       <p class="ty__sub">A member of the Bvive team will be in touch shortly to confirm a time and tailor everything to your business. In the meantime, here's where to go next.</p>
 
       <div class="ty__cards">
@@ -32,7 +32,7 @@ const next = [
 
 <style>
   .ty { position: relative; overflow: hidden; padding-block: clamp(3rem, 8vw, 6rem); text-align: center; }
-  .ty__bg { position: absolute; inset: 0; background: radial-gradient(50% 60% at 50% 0%, rgba(16,181,166,.1), transparent 60%), linear-gradient(180deg, var(--ink-50), var(--paper)); }
+  .ty__bg { position: absolute; inset: 0; background: radial-gradient(50% 60% at 50% 0%, rgba(0,146,69,.1), transparent 60%), linear-gradient(180deg, var(--ink-50), var(--paper)); }
   .ty__inner { position: relative; z-index: 2; max-width: 46rem; margin-inline: auto; }
   .ty__check { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--grad-recovered); color: #fff; margin: 0 auto var(--sp-6); box-shadow: var(--shadow-lg); }
   .ty h1 { font-size: var(--text-4xl); }

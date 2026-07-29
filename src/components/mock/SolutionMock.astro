@@ -107,9 +107,9 @@ const { variant } = Astro.props;
         <div class="tk__head"><h4>My tasks</h4><span class="chip">Today · 6 open</span></div>
         {[
           { t: "Call Peak Pilates re: overdue $308", w: "AM", due: "Today", done: false },
-          { t: "Send retry link — Metro Dance", w: "AM", due: "Today", done: false },
-          { t: "Follow up cancellation — Coastline", w: "JS", due: "Tomorrow", done: false },
-          { t: "Confirm payment arrangement — Elite", w: "PT", due: "Done", done: true },
+          { t: "Send retry link: Metro Dance", w: "AM", due: "Today", done: false },
+          { t: "Follow up cancellation: Coastline", w: "JS", due: "Tomorrow", done: false },
+          { t: "Confirm payment arrangement: Elite", w: "PT", due: "Done", done: true },
         ].map((r) => (
           <div class={`tk__row ${r.done ? "is-done" : ""}`}>
             <span class="tk__box">{r.done ? "✓" : ""}</span>
@@ -129,7 +129,7 @@ const { variant } = Astro.props;
   .chip { font-size: 11px; color: var(--ink-400); background: var(--ink-50); padding: 4px 10px; border-radius: var(--r-pill); }
   .tg { font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; }
   .tg--ok { background: var(--green-100); color: var(--green-600); } .tg--info { background: var(--blue-50); color: var(--blue-700); }
-  .tg--warn { background: var(--amber-100); color: var(--amber-600); } .tg--bad { background: var(--red-100); color: var(--red-600); }
+  .tg--warn { background: var(--amber-100); color: var(--amber-600); } .tg--bad { background: var(--orange-100); color: var(--orange-600); }
 
   /* recovery */
   .rv__head, .ar__head, .kb__head, .an__head, .tk__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -139,7 +139,7 @@ const { variant } = Astro.props;
   .rv__amt { font-weight: 700; color: var(--ink-900); }
   .rv__w { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--blue-50); color: var(--blue-700); font-size: 9.5px; font-weight: 700; }
   .pri { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; text-transform: uppercase; letter-spacing: .04em; }
-  .pri--high { background: #fde7e7; color: var(--red-600); } .pri--med { background: var(--amber-100); color: var(--amber-600); } .pri--low { background: var(--ink-100); color: var(--ink-500); }
+  .pri--high { background: #fde7e7; color: var(--orange-600); } .pri--med { background: var(--amber-100); color: var(--amber-600); } .pri--low { background: var(--ink-100); color: var(--ink-500); }
 
   /* arrears */
   .ar__cols, .ar__row { display: grid; grid-template-columns: 1.6fr .8fr .8fr 1fr; gap: 10px; align-items: center; }
@@ -178,7 +178,7 @@ const { variant } = Astro.props;
   .an__chart { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; align-items: end; height: 130px; padding-top: 10px; }
   .an__bar { display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
   .an__bar i { width: 100%; max-width: 34px; border-radius: 6px 6px 0 0; background: var(--grad-brand); }
-  .an__bar:last-child i { background: linear-gradient(180deg, #10b5a6, #17b26a); }
+  .an__bar:last-child i { background: linear-gradient(180deg, #009245, #009245); }
   .an__bar span { font-size: 10.5px; color: var(--ink-400); }
 
   /* tasks */

@@ -27,11 +27,14 @@ const { eyebrow, title, sub, crumb, align = "left", tone = "light" } = Astro.pro
   .phero { position: relative; overflow: hidden; padding-block: clamp(3rem, 6vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); }
   .phero--light { background: linear-gradient(180deg, var(--ink-50), var(--paper)); border-bottom: 1px solid var(--border-soft); }
   .phero--navy { background: var(--navy-900); color: #cdd8e6; }
-  .phero__bg { position: absolute; inset: 0; background: radial-gradient(70% 60% at 80% -10%, rgba(16,181,166,.16), transparent 55%), radial-gradient(60% 60% at 10% 0%, rgba(31,99,232,.20), transparent 55%); }
+  .phero__bg { position: absolute; inset: 0; background: radial-gradient(70% 60% at 80% -10%, rgba(0,146,69,.16), transparent 55%), radial-gradient(60% 60% at 10% 0%, rgba(0,113,188,.20), transparent 55%); }
   .phero__grid { position: absolute; inset: 0; opacity: .4; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(80% 70% at 50% 0%, #000, transparent); mask-image: radial-gradient(80% 70% at 50% 0%, #000, transparent); }
   .phero__inner { position: relative; z-index: 2; max-width: 52rem; }
   .phero--center .phero__inner { margin-inline: auto; text-align: center; }
-  .phero__crumb { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); margin-bottom: var(--sp-4); }
+  /* flex (not inline-flex) so the eyebrow that follows starts a new line */
+  .phero__crumb { display: flex; width: fit-content; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); margin-bottom: var(--sp-4); transition: color var(--dur) var(--ease-out), gap var(--dur) var(--ease-out); }
+  .phero__crumb:hover { color: var(--blue-600); gap: 9px; }
+  .phero--center .phero__crumb { margin-inline: auto; }
   .phero__crumb-ic { transform: rotate(180deg); }
   .phero--navy .phero__crumb { color: #8fa6bf; }
   .phero h1 { margin-top: var(--sp-3); font-size: var(--text-4xl); }

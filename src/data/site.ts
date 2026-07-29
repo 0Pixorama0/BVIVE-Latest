@@ -1,5 +1,5 @@
 /* ============================================================
-   Bvive — Site data (single source of truth)
+   Bvive site data (single source of truth)
    Copy sourced from the Bvive Volume Pack (Vol 1 brand, Vol 2 copy)
    ============================================================ */
 
@@ -85,7 +85,7 @@ export const modules: Module[] = [
   { slug: "payment-recovery", name: "Payment Recovery", pillar: "recover", tag: "Recover", icon: "recover",
     summary: "Identify failed payments, prioritise action, assign follow-up and track recovery outcomes from one workflow." },
   { slug: "arrears-management", name: "Arrears Management", pillar: "recover", tag: "Recover", icon: "arrears",
-    summary: "A central view of overdue customers, actions taken, payment status and next steps — no more spreadsheets." },
+    summary: "A central view of overdue customers, actions taken, payment status and next steps, with no more spreadsheets." },
   { slug: "cancellation-management", name: "Cancellation Management", pillar: "retain", tag: "Retain", icon: "retain",
     summary: "Capture the reason, assign the right follow-up, offer approved save pathways and report on outcomes." },
   { slug: "customer-lifecycle", name: "Customer Lifecycle CRM", pillar: "retain", tag: "Retain", icon: "crm",
@@ -128,7 +128,7 @@ export const solutions: Solution[] = [
     hero: "Recover failed direct debits before they become lost revenue.",
     sub: "Identify failed payments, prioritise action, assign follow-up and track recovery outcomes from one workflow.",
     problem: "Failed debits pile up in exports and inboxes. Nobody owns the follow-up, and recoverable revenue quietly slips into bad debt.",
-    outcome: "Every failed payment becomes an actionable, owned task — with a clear record of what was tried and what was recovered.",
+    outcome: "Every failed payment becomes an actionable, owned task, with a clear record of what was tried and what was recovered.",
     pillar: "recover",
     mock: "recovery",
     metricLabel: "Failed payments given an owner",
@@ -147,7 +147,7 @@ export const solutions: Solution[] = [
     hero: "Take control of overdue accounts without relying on spreadsheets.",
     sub: "Bvive gives teams a central view of overdue customers, actions taken, payment status and next steps.",
     problem: "Overdue accounts live in a spreadsheet that only one person understands. Status is unclear and accountability is missing.",
-    outcome: "A single, live view of who is overdue, what has been done and what happens next — visible to the whole team.",
+    outcome: "A single, live view of who is overdue, what has been done and what happens next, visible to the whole team.",
     pillar: "recover",
     mock: "arrears",
     metricLabel: "Central view of overdue accounts",
@@ -156,7 +156,7 @@ export const solutions: Solution[] = [
       { title: "Live arrears ledger", body: "Every overdue account in one place with amount, age and current status." },
       { title: "Action history", body: "A timestamped trail of calls, messages and payment arrangements per customer." },
       { title: "Next-step ownership", body: "Clear next actions and owners so accounts keep moving toward resolution." },
-      { title: "Status at a glance", body: "Colour-coded states — in progress, promised, recovered, escalated." },
+      { title: "Status at a glance", body: "Colour-coded states: in progress, promised, recovered, escalated." },
     ],
   },
   {
@@ -185,7 +185,7 @@ export const solutions: Solution[] = [
     hero: "Know where every customer stands before revenue is at risk.",
     sub: "Keep customer notes, payment risk, cancellation status, tasks and communication history connected to the revenue lifecycle.",
     problem: "Customer context is scattered across tools and people. By the time risk is obvious, the revenue is already gone.",
-    outcome: "One customer record that ties notes, payment risk and history together — so your team acts early, not late.",
+    outcome: "One customer record that ties notes, payment risk and history together, so your team acts early, not late.",
     pillar: "retain",
     mock: "crm",
     metricLabel: "Customer context in one record",
@@ -204,7 +204,7 @@ export const solutions: Solution[] = [
     hero: "See exactly where revenue is leaking and what your team is doing about it.",
     sub: "Track failed payments, recovered revenue, cancellation saves, staff activity, overdue accounts and trends across time.",
     problem: "Owners can't see how much money is recoverable, and managers can't see who is doing the work.",
-    outcome: "Clear dashboards that quantify leakage, recovery and team activity — the numbers you need before every decision.",
+    outcome: "Clear dashboards that quantify leakage, recovery and team activity: the numbers you need before every decision.",
     pillar: "decide",
     mock: "analytics",
     metricLabel: "Revenue visibility",
@@ -331,7 +331,7 @@ export const moreIndustries = [
 
 /* ---- How it works (homepage) ---- */
 export const howItWorks = [
-  { n: "01", title: "Connect your customer data", body: "Bring recurring customers, payment status and history into one place — Bvive sits beside your payment provider, it doesn't replace it." },
+  { n: "01", title: "Connect your customer data", body: "Bring recurring customers, payment status and history into one place. Bvive sits beside your payment provider, it doesn't replace it." },
   { n: "02", title: "See risk the moment it appears", body: "Failed payments, overdue accounts and cancellation requests surface as prioritised, owned tasks." },
   { n: "03", title: "Act with a clear workflow", body: "Your team follows up, offers approved save pathways and records every outcome." },
   { n: "04", title: "Report on recovered revenue", body: "Owners and managers see leakage, recovery and team activity trended over time." },
@@ -340,8 +340,8 @@ export const howItWorks = [
 /* ---- FAQ (Vol 2 §50) ---- */
 export const faqs = [
   { q: "Does Bvive replace our payment provider?", a: "No. Bvive is the workflow and visibility layer around your recurring payment process. It sits beside providers like your existing direct-debit gateway rather than replacing them." },
-  { q: "Is this debt collection?", a: "No. Bvive is positioned as revenue recovery and customer lifecycle management — it helps teams act earlier and more respectfully, before accounts become bad debt." },
-  { q: "How hard is setup?", a: "Setup is guided and staged. You start with one priority workflow — usually failed-payment recovery — and expand from there once your team is comfortable." },
+  { q: "Is this debt collection?", a: "No. Bvive is positioned as revenue recovery and customer lifecycle management. It helps teams act earlier and more respectfully, before accounts become bad debt." },
+  { q: "How hard is setup?", a: "Setup is guided and staged. You start with one priority workflow, usually failed-payment recovery, and expand from there once your team is comfortable." },
   { q: "Who is Bvive best for?", a: "Businesses with 500+ recurring or direct-debit customers, where failed payments and cancellations add up to a meaningful revenue leak." },
   { q: "Is our data secure?", a: "Bvive uses role-based access and permission controls, and supports compliant communication workflows. Access is scoped so staff only see what they need." },
   { q: "Do you guarantee recovery outcomes?", a: "No responsible platform can guarantee recovery. Bvive gives your team the visibility and workflow to recover more than an inconsistent, manual process would." },
@@ -350,7 +350,7 @@ export const faqs = [
 /* ---- Trust / proof strip ---- */
 export const trustStats = [
   { value: "500+", label: "recurring customers", sub: "where leakage becomes a real profit leak" },
-  { value: "4", label: "revenue moments", sub: "recovery, arrears, cancellations, follow-up — unified" },
+  { value: "4", label: "revenue moments", sub: "recovery, arrears, cancellations and follow-up in one place" },
   { value: "1", label: "operating platform", sub: "instead of spreadsheets and disconnected tools" },
   { value: "AU", label: "built for", sub: "direct-debit and recurring-revenue businesses" },
 ];

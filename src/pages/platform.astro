@@ -47,7 +47,7 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
   <!-- Modules -->
   <section class="section section--tint" id="modules">
     <div class="container">
-      <div class="heading-block" data-reveal><span class="eyebrow">Modules</span><h2>Everything connected to one customer record</h2><p class="lead">Start with one workflow and switch on more as your team is ready — every module shares the same data.</p></div>
+      <div class="heading-block" data-reveal><span class="eyebrow">Modules</span><h2>Everything connected to one customer record</h2><p class="lead">Start with one workflow and switch on more as your team is ready. Every module shares the same data.</p></div>
       <div class="modgrid" data-reveal>
         {live.map((m) => (
           <a href={modHref(m.slug)} class="modcard">
@@ -84,7 +84,7 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
         <div class="twocol__card">
           <span class="twocol__ic"><Icon name="layers" size={22} /></span>
           <h3>Sits beside your payment provider</h3>
-          <p>Bvive is the workflow and visibility layer around your recurring payment process. It complements your existing direct-debit gateway and customer tools — it doesn't replace them.</p>
+          <p>Bvive is the workflow and visibility layer around your recurring payment process. It complements your existing direct-debit gateway and customer tools. It doesn't replace them.</p>
           <ul class="twocol__list">
             <li><Icon name="check" size={15} /> Works alongside your current provider</li>
             <li><Icon name="check" size={15} /> Import support where available</li>
@@ -107,7 +107,7 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
 
 <style>
   .phhero { position: relative; overflow: hidden; background: var(--navy-900); color: #cdd8e6; padding-block: clamp(3rem, 6vw, 5rem); }
-  .phhero__bg { position: absolute; inset: 0; background: radial-gradient(70% 60% at 85% 0%, rgba(16,181,166,.16), transparent 55%), radial-gradient(60% 60% at 5% 10%, rgba(31,99,232,.22), transparent 55%), linear-gradient(180deg,#071a2e,#050e1c); }
+  .phhero__bg { position: absolute; inset: 0; background: radial-gradient(70% 60% at 85% 0%, rgba(0,146,69,.16), transparent 55%), radial-gradient(60% 60% at 5% 10%, rgba(0,113,188,.22), transparent 55%), linear-gradient(180deg,#061c2e,#041320); }
   .phhero__grid { position: absolute; inset: 0; opacity: .45; background-image: linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(85% 75% at 50% 0%,#000,transparent); mask-image: radial-gradient(85% 75% at 50% 0%,#000,transparent); }
   .phhero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4rem); align-items: center; }
   .phhero h1 { color: #fff; font-size: var(--text-4xl); margin-top: var(--sp-3); }
@@ -116,7 +116,7 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
 
   .phpillars { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-4); }
   .phpillar { display: flex; flex-direction: column; gap: 6px; padding: var(--sp-5); border-radius: var(--r-lg); border: 1px solid var(--border-soft); background: var(--white); box-shadow: var(--shadow-xs); }
-  .phpillar__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(160deg,var(--blue-50),var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-2); }
+  .phpillar__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(160deg,var(--blue-50),var(--green-50)); color: var(--blue-600); margin-bottom: var(--sp-2); }
   .phpillar b { font-family: var(--font-display); font-size: var(--text-lg); letter-spacing: -.01em; }
   .phpillar span { font-size: var(--text-sm); color: var(--text-muted); }
 
@@ -135,28 +135,28 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
   .roadmap__desc { font-size: var(--text-sm); color: var(--text-subtle); }
 
   .howworks { position: relative; overflow: hidden; }
-  .howworks__glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 0%, rgba(16,181,166,.14), transparent 55%); }
+  .howworks__glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 0%, rgba(0,146,69,.14), transparent 55%); }
   .howworks .container { position: relative; z-index: 2; }
   .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-5); margin-top: var(--sp-8); }
   .step { position: relative; padding-top: var(--sp-6); }
   .step::before { content: ""; position: absolute; top: var(--sp-6); left: 0; width: 34px; height: 2px; background: var(--grad-brand); }
-  .step__n { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; letter-spacing: .1em; color: var(--teal-400); }
+  .step__n { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; letter-spacing: .1em; color: var(--green-400); }
   .step h3 { color: #fff; font-size: var(--text-xl); margin-top: var(--sp-3); }
   .step p { color: #93a8bf; font-size: var(--text-base); margin-top: var(--sp-3); }
   .step__line { position: absolute; top: calc(var(--sp-6) + 8px); right: -8px; width: 16px; height: 1px; background: var(--navy-line); }
 
   .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
   .twocol__card { padding: clamp(1.75rem,4vw,2.75rem); border-radius: var(--r-xl); border: 1px solid var(--border-soft); background: var(--white); box-shadow: var(--shadow-sm); }
-  .twocol__card--dark { background: radial-gradient(120% 120% at 100% 0%, #0e3358, #071a2e 65%); color: #cdd8e6; border-color: var(--navy-line); }
-  .twocol__ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: linear-gradient(160deg,var(--blue-50),var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-5); }
-  .twocol__ic--dark { background: rgba(16,181,166,.16); color: var(--teal-400); }
+  .twocol__card--dark { background: radial-gradient(120% 120% at 100% 0%, #0e3358, #061c2e 65%); color: #cdd8e6; border-color: var(--navy-line); }
+  .twocol__ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: linear-gradient(160deg,var(--blue-50),var(--green-50)); color: var(--blue-600); margin-bottom: var(--sp-5); }
+  .twocol__ic--dark { background: rgba(0,146,69,.16); color: var(--green-400); }
   .twocol__card h3 { font-size: var(--text-2xl); }
   .twocol__card--dark h3 { color: #fff; }
   .twocol__card p { margin-top: var(--sp-4); font-size: var(--text-base); color: var(--text-muted); }
   .twocol__card--dark p { color: #9fb4cb; }
   .twocol__list { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); }
   .twocol__list li { display: flex; align-items: center; gap: 10px; font-size: var(--text-base); color: var(--ink-700); }
-  .twocol__list :global(svg) { color: var(--teal-600); }
+  .twocol__list :global(svg) { color: var(--green-600); }
 
   @media (max-width: 900px) {
     .phhero__inner, .twocol { grid-template-columns: 1fr; }

@@ -1,12 +1,13 @@
 ---
 /* Reusable app-window chrome shared by all product mockups. */
-interface Props { title?: string; class?: string; }
-const { title = "app.bvive.com.au", class: cls = "" } = Astro.props;
+import Logo from "../Logo.astro";
+interface Props { class?: string; }
+const { class: cls = "" } = Astro.props;
 ---
 <div class={`appframe ${cls}`}>
   <div class="appframe__bar">
     <span class="appframe__dots"><i></i><i></i><i></i></span>
-    <span class="appframe__url">{title}</span>
+    <Logo href={null} height={18} class="appframe__logo" />
     <span class="appframe__spacer"></span>
   </div>
   <div class="appframe__body">
@@ -15,12 +16,14 @@ const { title = "app.bvive.com.au", class: cls = "" } = Astro.props;
 </div>
 <style>
   .appframe {
+    position: relative;
+    z-index: 1;
     background: var(--white);
     border: 1px solid rgba(255,255,255,.14);
     border-radius: var(--r-lg);
     box-shadow: var(--shadow-xl);
     overflow: hidden;
-    outline: 1px solid rgba(11,22,38,.06);
+    outline: 1px solid rgba(10,23,37,.06);
   }
   .appframe__bar {
     display: flex; align-items: center; gap: 12px;
@@ -33,12 +36,10 @@ const { title = "app.bvive.com.au", class: cls = "" } = Astro.props;
   .appframe__dots i:nth-child(1) { background: #f5726a; }
   .appframe__dots i:nth-child(2) { background: #f6b73c; }
   .appframe__dots i:nth-child(3) { background: #3fc07a; }
-  .appframe__url {
-    font-size: 12px; color: var(--ink-400); font-weight: 500;
-    background: var(--white); border: 1px solid var(--border);
-    padding: 3px 12px; border-radius: var(--r-pill);
-    margin-inline: auto; letter-spacing: .01em;
-  }
+  /* The window's identity chip. Static inside a mockup: the breathing aura
+     the live nav logo uses would pull focus from the product UI. */
+  .appframe :global(.appframe__logo) { margin-inline: auto; }
+  .appframe :global(.appframe__logo .logo__aura) { display: none; }
   .appframe__spacer { width: 46px; }
   .appframe__body { background: var(--paper); }
 </style>

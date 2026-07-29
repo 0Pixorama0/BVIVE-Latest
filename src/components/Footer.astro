@@ -42,14 +42,13 @@ const year = new Date().getFullYear();
       </nav>
     </div>
   </div>
-  <div class="footer__wordmark" aria-hidden="true">Bvive</div>
 </footer>
 
 <style>
   .footer {
     position: relative; overflow: hidden;
     background: var(--navy-950); color: #93a4ba;
-    padding-top: var(--sp-11);
+    padding-block: var(--sp-11) var(--sp-4);
   }
   .footer__top {
     display: grid; grid-template-columns: 1.3fr 2fr; gap: var(--sp-9);
@@ -73,14 +72,6 @@ const year = new Date().getFullYear();
   .footer__meta { display: flex; gap: var(--sp-5); flex-shrink: 0; }
   .footer__meta a { font-size: var(--text-sm); color: #93a4ba; }
   .footer__meta a:hover { color: #fff; }
-
-  .footer__wordmark {
-    font-family: var(--font-display); font-weight: 600;
-    font-size: clamp(5rem, 20vw, 18rem); line-height: .8;
-    letter-spacing: -.04em; text-align: center;
-    color: #0b1d33; user-select: none;
-    margin-bottom: -0.12em; padding-top: var(--sp-4);
-  }
 
   @media (max-width: 860px) {
     .footer__top { grid-template-columns: 1fr; gap: var(--sp-7); }

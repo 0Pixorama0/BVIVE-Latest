@@ -1,64 +1,93 @@
 /* ============================================================
-   Bvive — Design Tokens
+   Bvive design tokens
    Revenue Recovery & Customer Lifecycle Platform
-   8px spacing system · fluid type · fintech-grade palette
+   8px spacing system · fluid type · logo-derived palette
+
+   Brand colours are sampled directly from the Bvive logo mark:
+     blue   #0071bc   green  #009245
+     amber  #fbc23b   orange #f15a24
    ============================================================ */
 
 :root {
-  /* ---- Neutrals (cool, slightly blue-tinted premium greys) ---- */
+  /* ---- Raw logo swatches (single source of truth) ---- */
+  --logo-blue:   #0071bc;
+  --logo-green:  #009245;
+  --logo-amber:  #fbc23b;
+  --logo-orange: #f15a24;
+
+  /* channel triplets for rgb(... / alpha) composition */
+  --rgb-blue:   0 113 188;
+  --rgb-green:  0 146 69;
+  --rgb-amber:  251 194 59;
+  --rgb-orange: 241 90 36;
+
+  /* ---- Neutrals (cool greys, tuned to the logo's 204° blue) ---- */
   --white: #ffffff;
   --paper: #fbfcfe;         /* page background */
-  --ink-50:  #f3f6fb;       /* section tint */
-  --ink-100: #e8eef6;       /* hairlines on tint */
-  --ink-200: #d7dfea;       /* borders */
-  --ink-300: #b9c4d4;
-  --ink-400: #8a97ab;       /* muted text */
-  --ink-500: #5d6b82;       /* secondary text */
-  --ink-600: #3f4d64;
-  --ink-700: #26344b;
-  --ink-800: #16233a;
-  --ink-900: #0b1626;       /* primary text */
+  --ink-50:  #f2f6fa;       /* section tint */
+  --ink-100: #e6eef5;       /* hairlines on tint */
+  --ink-200: #d4dfe9;       /* borders */
+  --ink-300: #b5c4d3;
+  --ink-400: #8697aa;       /* muted text */
+  --ink-500: #5a6b80;       /* secondary text */
+  --ink-600: #3c4d62;
+  --ink-700: #243448;
+  --ink-800: #142337;
+  --ink-900: #0a1725;       /* primary text */
 
   /* ---- Deep navy surfaces (dark hero / footer) ---- */
-  --navy-950: #050e1c;
-  --navy-900: #071a2e;
-  --navy-850: #0a2138;
-  --navy-800: #0e2b47;
-  --navy-line: #17324f;     /* borders on navy */
+  --navy-950: #041320;
+  --navy-900: #061c2e;
+  --navy-850: #082438;
+  --navy-800: #0b2f47;
+  --navy-line: #143a55;     /* borders on navy */
 
-  /* ---- Brand blue (trust) ---- */
-  --blue-50:  #eef4ff;
-  --blue-100: #dbe7ff;
-  --blue-200: #b9d0ff;
-  --blue-400: #4e86f2;
-  --blue-500: #1f63e8;
-  --blue-600: #0e4cc0;      /* primary brand */
-  --blue-700: #0b3a8f;
+  /* ---- Brand blue (trust, the primary) ---- */
+  --blue-50:  #e9f4fb;
+  --blue-100: #cbe6f7;
+  --blue-200: #9bcdee;
+  --blue-300: #63ade1;
+  --blue-400: #4fb3e8;      /* legible on navy */
+  --blue-500: #0e7dc4;
+  --blue-600: #0071bc;      /* primary brand, exact logo blue */
+  --blue-700: #005a97;
+  --blue-800: #004573;
 
-  /* ---- Recovery accent (teal/emerald — cash flow, growth) ---- */
-  --teal-50:  #e6faf7;
-  --teal-100: #c4f2ec;
-  --teal-400: #2ed3c4;
-  --teal-500: #10b5a6;      /* accent */
-  --teal-600: #0b8f84;
+  /* ---- Recovery green (recovered revenue, success) ---- */
+  --green-50:  #e6f5ec;
+  --green-100: #c3e9d2;
+  --green-200: #8ed4ab;
+  --green-300: #6ad79b;
+  --green-400: #2ec26f;     /* legible on navy */
+  --green-500: #009245;     /* accent, exact logo green */
+  --green-600: #007a3a;
+  --green-700: #00602d;
 
-  --green-100: #d6f5e4;
-  --green-500: #17b26a;     /* recovered / success */
-  --green-600: #0f9257;
+  /* ---- Amber (at risk, pending, promised) ---- */
+  --amber-50:  #fff8e7;
+  --amber-100: #feedc2;
+  --amber-200: #fddc8c;
+  --amber-400: #fccb5c;
+  --amber-500: #fbc23b;     /* exact logo amber */
+  --amber-600: #dda413;
+  --amber-700: #a87c08;
 
-  /* ---- States (product UI, used sparingly) ---- */
-  --amber-100: #fdefd3;
-  --amber-500: #f2a521;
-  --amber-600: #cf8410;
-  --red-100:  #fbdcdd;
-  --red-500:  #e5484d;
-  --red-600:  #c62a2f;
+  /* ---- Orange (failed payments, overdue, urgent) ---- */
+  --orange-50:  #fef1ec;
+  --orange-100: #fbdacd;
+  --orange-200: #f8b79c;
+  --orange-400: #ff7a4d;    /* legible on navy */
+  --orange-500: #f15a24;    /* exact logo orange */
+  --orange-600: #d44410;
+  --orange-700: #a5350c;
 
   /* ---- Signature gradients ---- */
-  --grad-brand: linear-gradient(135deg, var(--blue-600) 0%, var(--teal-500) 100%);
-  --grad-brand-soft: linear-gradient(135deg, #123b9e 0%, #0e7b8f 100%);
-  --grad-glow: radial-gradient(60% 60% at 50% 0%, rgba(46,211,196,.20) 0%, rgba(31,99,232,.10) 40%, transparent 72%);
-  --grad-recovered: linear-gradient(90deg, var(--teal-500), var(--green-500));
+  --grad-brand: linear-gradient(135deg, var(--blue-600) 0%, var(--green-500) 100%);
+  --grad-brand-soft: linear-gradient(135deg, #005a97 0%, #007a3a 100%);
+  --grad-glow: radial-gradient(60% 60% at 50% 0%, rgb(var(--rgb-green) / .18) 0%, rgb(var(--rgb-blue) / .14) 42%, transparent 72%);
+  --grad-recovered: linear-gradient(90deg, var(--blue-600), var(--green-500));
+  /* full logo spectrum: thin accent rules, progress tracks, focus flourishes */
+  --grad-spectrum: linear-gradient(90deg, var(--logo-blue) 0%, var(--logo-green) 34%, var(--logo-amber) 67%, var(--logo-orange) 100%);
 
   /* ---- Semantic ---- */
   --bg: var(--paper);
@@ -70,7 +99,9 @@
   --border: var(--ink-200);
   --border-soft: var(--ink-100);
   --brand: var(--blue-600);
-  --accent: var(--teal-500);
+  --accent: var(--green-500);
+  --warn: var(--amber-500);
+  --urgent: var(--orange-500);
 
   /* ---- Typography ---- */
   --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -128,14 +159,18 @@
   --r-pill: 999px;
 
   /* ---- Shadows (layered, soft, premium) ---- */
-  --shadow-xs: 0 1px 2px rgba(11, 22, 38, .06);
-  --shadow-sm: 0 1px 3px rgba(11, 22, 38, .07), 0 1px 2px rgba(11, 22, 38, .04);
-  --shadow-md: 0 8px 24px -8px rgba(11, 22, 38, .12), 0 2px 6px rgba(11, 22, 38, .06);
-  --shadow-lg: 0 24px 60px -18px rgba(11, 22, 38, .22), 0 6px 16px -8px rgba(11, 22, 38, .10);
-  --shadow-xl: 0 44px 100px -30px rgba(9, 27, 56, .38), 0 12px 32px -16px rgba(9, 27, 56, .18);
-  --shadow-brand: 0 20px 50px -18px rgba(14, 76, 192, .45);
+  --shadow-xs: 0 1px 2px rgba(10, 23, 37, .06);
+  --shadow-sm: 0 1px 3px rgba(10, 23, 37, .07), 0 1px 2px rgba(10, 23, 37, .04);
+  --shadow-md: 0 8px 24px -8px rgba(10, 23, 37, .12), 0 2px 6px rgba(10, 23, 37, .06);
+  --shadow-lg: 0 24px 60px -18px rgba(10, 23, 37, .22), 0 6px 16px -8px rgba(10, 23, 37, .10);
+  --shadow-xl: 0 44px 100px -30px rgba(6, 28, 46, .38), 0 12px 32px -16px rgba(6, 28, 46, .18);
+  --shadow-brand: 0 20px 50px -18px rgb(var(--rgb-blue) / .45);
+  --shadow-accent: 0 20px 50px -18px rgb(var(--rgb-green) / .40);
   --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, .6);
-  --ring: 0 0 0 4px rgba(31, 99, 232, .18);
+  --ring: 0 0 0 4px rgb(var(--rgb-blue) / .20);
+  /* glow halos used by hover/focus "lift" states */
+  --glow-blue:  0 0 0 1px rgb(var(--rgb-blue) / .18), 0 12px 34px -12px rgb(var(--rgb-blue) / .40);
+  --glow-green: 0 0 0 1px rgb(var(--rgb-green) / .20), 0 12px 34px -12px rgb(var(--rgb-green) / .40);
 
   /* ---- Layout ---- */
   --container: 1200px;

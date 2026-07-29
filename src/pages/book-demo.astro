@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 import DemoForm from "../components/DemoForm.astro";
 const expect = [
-  { t: "A tailored walkthrough", d: "We map Bvive to your industry, customer volume and current process — not a generic tour." },
+  { t: "A tailored walkthrough", d: "We map Bvive to your industry, customer volume and current process, not a generic tour." },
   { t: "Your recovery opportunity, sized", d: "We'll estimate the revenue you could be recovering and the admin time you could save." },
   { t: "A staged rollout plan", d: "See how you'd start with one workflow and expand, with guided onboarding." },
 ];
@@ -43,7 +43,7 @@ const expect = [
 <style>
   .bd { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 5vw, 4.5rem); }
   .bd__bg { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink-50), var(--paper)); }
-  .bd__bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 50% at 12% 0%, rgba(31,99,232,.08), transparent 60%); }
+  .bd__bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 50% at 12% 0%, rgba(0,113,188,.08), transparent 60%); }
   .bd__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
   .bd__left { position: sticky; top: calc(var(--nav-h) + 32px); }
   .bd h1 { margin-top: var(--sp-3); font-size: var(--text-4xl); }
@@ -55,7 +55,7 @@ const expect = [
   .bd__expect p { font-size: var(--text-base); color: var(--text-muted); margin-top: 3px; }
   .bd__trust { margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--border); display: grid; gap: var(--sp-3); }
   .bd__trust-item { display: flex; align-items: center; gap: 10px; font-size: var(--text-base); font-weight: 500; color: var(--ink-700); }
-  .bd__trust-item :global(svg) { color: var(--teal-600); }
+  .bd__trust-item :global(svg) { color: var(--green-600); }
 
   @media (max-width: 900px) {
     .bd__inner { grid-template-columns: 1fr; }

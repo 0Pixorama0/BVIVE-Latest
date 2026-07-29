@@ -36,7 +36,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
         </h1>
         <p class="hero__sub" data-reveal data-reveal-delay="2">
           Bvive helps businesses using direct debit manage failed payments, overdue
-          accounts, cancellation requests and customer follow-up — from one platform.
+          accounts, cancellation requests and customer follow-up, all from one platform.
         </p>
         <div class="hero__cta" data-reveal data-reveal-delay="3">
           <a href="/book-demo" class="btn btn--primary btn--lg">Book a Demo <Icon name="arrow" size={18} class="btn__icon" /></a>
@@ -74,7 +74,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
         <div class="problem__lead" data-reveal>
           <span class="eyebrow">The quiet leak</span>
           <h2>Most businesses don't lose recurring revenue in one big event.</h2>
-          <p class="lead">They lose it in the gaps — failed payments no one chased, cancellations handled too late, overdue accounts buried in a spreadsheet only one person understands.</p>
+          <p class="lead">They lose it in the gaps: failed payments no one chased, cancellations handled too late, overdue accounts buried in a spreadsheet only one person understands.</p>
           <a href="/calculator" class="link-arrow">Estimate your revenue leakage <Icon name="arrow" size={16} /></a>
         </div>
         <ul class="leaks" data-reveal>
@@ -232,13 +232,13 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
     <div class="container">
       <div class="proof__grid">
         <div class="proof__media" data-reveal>
-          <ImageSlot label="Founder / operator portrait — confident, approachable, real business environment" ratio="3 / 4" rounded="var(--r-xl)" />
+          <ImageSlot label="Founder or operator portrait, confident and approachable in a real business environment" ratio="3 / 4" rounded="var(--r-xl)" />
         </div>
         <div class="proof__copy" data-reveal>
           <span class="eyebrow">Why Bvive exists</span>
           <blockquote class="proof__quote">
             <Icon name="quote" size={30} class="proof__qmark" />
-            <p>We watched recurring-revenue businesses lose real money through small operational gaps — a failed debit no one chased, a cancellation handled too late. Bvive is the system we wished we'd had: one place to see the risk and act on it.</p>
+            <p>We watched recurring-revenue businesses lose real money through small operational gaps: a failed debit no one chased, a cancellation handled too late. Bvive is the system we wished we'd had: one place to see the risk and act on it.</p>
           </blockquote>
           <div class="proof__by">
             <b>Built by operators</b>
@@ -267,21 +267,72 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
 <style>
   /* ---------- HERO ---------- */
   .hero { position: relative; overflow: hidden; background: var(--navy-900); color: #cdd8e6; padding-block: clamp(3rem, 7vw, 6rem) clamp(4rem, 8vw, 7rem); }
-  .hero__bg { position: absolute; inset: 0; background: radial-gradient(80% 60% at 70% -10%, rgba(16,181,166,.18), transparent 55%), radial-gradient(70% 60% at 15% 10%, rgba(31,99,232,.22), transparent 55%), linear-gradient(180deg, #071a2e, #050e1c); }
+  /* Base wash: the navy field the hero sits on. */
+  .hero__bg { position: absolute; inset: 0; background: linear-gradient(180deg, #061c2e, #041320); }
+  /* Aurora: four slow-drifting blooms, one per logo colour. The amber and
+     orange sit at low alpha so they warm the field without tinting the type. */
+  .hero__bg::before,
+  .hero__bg::after {
+    content: ""; position: absolute; inset: -25%;
+    background:
+      radial-gradient(38% 42% at 72% 12%, rgb(var(--rgb-green) / .26), transparent 60%),
+      radial-gradient(42% 46% at 14% 22%, rgb(var(--rgb-blue) / .34), transparent 62%);
+    filter: blur(20px);
+  }
+  .hero__bg::after {
+    background:
+      radial-gradient(30% 34% at 46% 78%, rgb(var(--rgb-orange) / .13), transparent 62%),
+      radial-gradient(28% 30% at 86% 60%, rgb(var(--rgb-amber) / .10), transparent 62%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__bg::before { animation: aurora-a 22s var(--ease-in-out) infinite; }
+    .hero__bg::after  { animation: aurora-b 28s var(--ease-in-out) infinite; }
+  }
+  @keyframes aurora-a {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(3%, 2%, 0) scale(1.1); }
+  }
+  @keyframes aurora-b {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+    50%      { transform: translate3d(-4%, -3%, 0) scale(1); }
+  }
   .hero__grid { position: absolute; inset: 0; opacity: .5; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 46px 46px; -webkit-mask-image: radial-gradient(90% 80% at 50% 0%, #000, transparent 80%); mask-image: radial-gradient(90% 80% at 50% 0%, #000, transparent 80%); }
-  .hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1.06fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__grid { animation: grid-drift 40s linear infinite; }
+    @keyframes grid-drift { to { background-position: 46px 46px, 46px 46px; } }
+  }
+  .hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.06fr 1.22fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
   .hero__ann { display: inline-flex; align-items: center; gap: 12px; margin-bottom: var(--sp-5); }
   .hero__ann-t { font-size: var(--text-sm); font-weight: 600; color: #a9c6dd; display: inline-flex; align-items: center; gap: 5px; }
-  .hero h1 { color: #fff; font-size: clamp(2.5rem, 5.4vw, 4.4rem); line-height: 1.02; letter-spacing: -.035em; }
+  .hero h1 { color: #fff; font-size: clamp(2.4rem, 4.6vw, 4.05rem); line-height: 1.04; letter-spacing: -.035em; }
   .hero__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: #9fb4cb; max-width: 40ch; }
   .hero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-7); }
   .hero__trust { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin-top: var(--sp-7); }
   .hero__trust li { display: inline-flex; align-items: center; gap: 7px; font-size: var(--text-sm); color: #8fa6bf; }
-  .hero__trust :global(svg) { color: var(--teal-400); }
+  .hero__trust :global(svg) { color: var(--green-400); }
   .hero__visual { position: relative; }
+  /* Halo behind the product mock so it lifts off the navy. */
+  .hero__visual::before {
+    content: ""; position: absolute; inset: -6% -4%; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgb(var(--rgb-blue) / .30), transparent 70%);
+    filter: blur(46px);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__visual::before { animation: halo-breathe 9s var(--ease-in-out) infinite; }
+    @keyframes halo-breathe {
+      0%, 100% { opacity: .75; transform: scale(1); }
+      50%      { opacity: 1;   transform: scale(1.06); }
+    }
+    .hero__visual > :global(.hero-dash) { animation: dash-float 11s var(--ease-in-out) infinite; }
+    @keyframes dash-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+  }
   .hero__float { position: absolute; display: inline-flex; align-items: center; gap: 7px; padding: 9px 13px; border-radius: var(--r-pill); background: rgba(255,255,255,.92); backdrop-filter: blur(8px); color: var(--ink-700); font-size: var(--text-sm); font-weight: 500; box-shadow: var(--shadow-lg); z-index: 5; }
   .hero__float b { font-weight: 700; color: var(--ink-900); }
-  .hero__float :global(svg) { color: var(--teal-600); }
+  .hero__float :global(svg) { color: var(--green-600); }
   .hero__float--1 { bottom: -14px; left: -22px; animation: floaty 6s var(--ease-in-out) infinite; }
   .hero__float--2 { top: 40px; right: -18px; animation: floaty 6s var(--ease-in-out) infinite 1.5s; }
   @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
@@ -302,7 +353,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .leak { display: flex; gap: var(--sp-4); padding: var(--sp-5); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out); }
   .leak:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
   .leak__ic { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; }
-  .leak__ic--red { background: var(--red-100); color: var(--red-600); }
+  .leak__ic--red { background: var(--orange-100); color: var(--orange-600); }
   .leak__ic--amber { background: var(--amber-100); color: var(--amber-600); }
   .leak__ic--blue { background: var(--blue-50); color: var(--blue-700); }
   .leak__ic--ink { background: var(--ink-100); color: var(--ink-700); }
@@ -314,7 +365,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .pillar { padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-lg); box-shadow: var(--shadow-xs); position: relative; overflow: hidden; }
   .pillar::after { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--grad-brand); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-slow) var(--ease-out); }
   .pillar:hover::after { transform: scaleX(1); }
-  .pillar__ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(160deg, var(--blue-50), var(--teal-50)); color: var(--blue-600); margin-bottom: var(--sp-4); }
+  .pillar__ic { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(160deg, var(--blue-50), var(--green-50)); color: var(--blue-600); margin-bottom: var(--sp-4); }
   .pillar h3 { font-size: var(--text-xl); }
   .pillar p { margin-top: var(--sp-2); font-size: var(--text-base); color: var(--text-muted); }
 
@@ -332,10 +383,10 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .qcard__row b { font-weight: 700; color: var(--ink-900); }
   .qcard__dot { width: 8px; height: 8px; border-radius: 50%; }
   .qcard__dot.ok { background: var(--green-500); } .qcard__dot.warn { background: var(--amber-500); }
-  .qcard__dot.info { background: var(--blue-500); } .qcard__dot.bad { background: var(--red-500); }
+  .qcard__dot.info { background: var(--blue-500); } .qcard__dot.bad { background: var(--orange-500); }
   .qtag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: var(--r-pill); }
   .qtag.ok { background: var(--green-100); color: var(--green-600); } .qtag.warn { background: var(--amber-100); color: var(--amber-600); }
-  .qtag.info { background: var(--blue-50); color: var(--blue-700); } .qtag.bad { background: var(--red-100); color: var(--red-600); }
+  .qtag.info { background: var(--blue-50); color: var(--blue-700); } .qtag.bad { background: var(--orange-100); color: var(--orange-600); }
 
   .bento__card { grid-column: span 1; position: relative; padding: var(--sp-6); background: var(--white); border: 1px solid var(--border-soft); border-radius: var(--r-xl); box-shadow: var(--shadow-xs); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur); overflow: hidden; }
   .bento__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border); }
@@ -354,11 +405,11 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
 
   /* ---------- HOW IT WORKS ---------- */
   .howworks { position: relative; overflow: hidden; }
-  .howworks__glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 0%, rgba(16,181,166,.14), transparent 55%); }
+  .howworks__glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 80% 0%, rgba(0,146,69,.14), transparent 55%); }
   .howworks .container { position: relative; z-index: 2; }
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); margin-top: var(--sp-8); }
   .step { position: relative; padding-top: var(--sp-6); }
-  .step__n { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; letter-spacing: .1em; color: var(--teal-400); }
+  .step__n { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; letter-spacing: .1em; color: var(--green-400); }
   .step h3 { color: #fff; font-size: var(--text-xl); margin-top: var(--sp-3); }
   .step p { color: #93a8bf; font-size: var(--text-base); margin-top: var(--sp-3); }
   .step__line { position: absolute; top: calc(var(--sp-6) + 8px); right: -8px; width: 16px; height: 1px; background: var(--navy-line); }
@@ -377,7 +428,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .indtab__copy p { margin: var(--sp-4) 0; color: var(--text-muted); font-size: var(--text-lg); }
   .indtab__points { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin-bottom: var(--sp-6); }
   .indtab__points li { display: flex; align-items: center; gap: 9px; font-size: var(--text-base); color: var(--ink-700); }
-  .indtab__points :global(svg) { color: var(--teal-600); flex-shrink: 0; }
+  .indtab__points :global(svg) { color: var(--green-600); flex-shrink: 0; }
   .indtab__media { position: relative; }
   .indtab__stat { position: absolute; right: -16px; bottom: -16px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); box-shadow: var(--shadow-lg); text-align: center; }
   .indtab__stat b { display: block; font-family: var(--font-display); font-size: var(--text-2xl); color: var(--blue-600); letter-spacing: -.02em; }

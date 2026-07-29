@@ -1,0 +1,13 @@
+{
+  "name": "Bvive",
+  "short_name": "Bvive",
+  "description": "Revenue recovery and customer lifecycle platform for Australian recurring-revenue businesses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0071bc",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

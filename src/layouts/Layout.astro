@@ -15,7 +15,7 @@ const {
   ogType = "website",
 } = Astro.props;
 
-const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.descriptor}`;
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.descriptor}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 ---
 <!doctype html>
@@ -23,11 +23,13 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#071a2e" />
+    <meta name="theme-color" content="#061c2e" />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={site.name} />
@@ -51,6 +53,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
   </head>
   <body>
     <a href="#main" class="sr-only">Skip to content</a>
+    <span class="progress" data-progress aria-hidden="true"></span>
     <Nav />
     <main id="main">
       <slot />
@@ -58,15 +61,78 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <Footer />
 
     <script>
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      /* ---- Reveal on scroll ---- */
       const io = new IntersectionObserver((entries) => {
         for (const e of entries) {
           if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
         }
       }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-      const mm = window.matchMedia("(prefers-reduced-motion: reduce)");
       document.querySelectorAll("[data-reveal]").forEach((el) => {
-        if (mm.matches) el.classList.add("is-in"); else io.observe(el);
+        if (reduced.matches) el.classList.add("is-in"); else io.observe(el);
       });
+
+      /* ---- Reading progress bar ---- */
+      const bar = document.querySelector<HTMLElement>("[data-progress]");
+      if (bar) {
+        let ticking = false;
+        const draw = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+          bar.style.setProperty("--p", String(p));
+          bar.style.opacity = p > 0.005 ? "1" : "0";
+          ticking = false;
+        };
+        draw();
+        window.addEventListener("scroll", () => {
+          if (!ticking) { ticking = true; requestAnimationFrame(draw); }
+        }, { passive: true });
+        window.addEventListener("resize", draw, { passive: true });
+      }
+
+      /* ---- Count-up for numeric stats ----
+         <span data-count="48920" data-prefix="$" data-suffix="k"> */
+      const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+      const runCount = (el: HTMLElement) => {
+        const target = Number(el.dataset.count || "0");
+        const decimals = Number(el.dataset.decimals || "0");
+        const prefix = el.dataset.prefix || "";
+        const suffix = el.dataset.suffix || "";
+        const dur = Number(el.dataset.dur || "1400");
+        const group = el.dataset.group !== "false";
+        const fmt = (n: number) => {
+          const v = group
+            ? n.toLocaleString("en-AU", { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+            : n.toFixed(decimals);
+          return prefix + v + suffix;
+        };
+        if (reduced.matches) { el.textContent = fmt(target); return; }
+        const t0 = performance.now();
+        const step = (now: number) => {
+          const t = Math.min((now - t0) / dur, 1);
+          el.textContent = fmt(target * easeOut(t));
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      const countIo = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { runCount(e.target as HTMLElement); countIo.unobserve(e.target); }
+        }
+      }, { threshold: 0.5 });
+      document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => countIo.observe(el));
+
+      /* ---- Pointer-tracked glow on cards (desktop, fine pointer only) ---- */
+      if (!reduced.matches && window.matchMedia("(pointer: fine)").matches) {
+        document.querySelectorAll<HTMLElement>("[data-spot]").forEach((el) => {
+          el.addEventListener("pointermove", (ev) => {
+            const r = el.getBoundingClientRect();
+            el.style.setProperty("--mx", `${((ev.clientX - r.left) / r.width) * 100}%`);
+            el.style.setProperty("--my", `${((ev.clientY - r.top) / r.height) * 100}%`);
+          });
+        });
+      }
     </script>
   </body>
 </html>
