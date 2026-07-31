@@ -2,9 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import Icon from "../../components/Icon.astro";
-import ImageSlot from "../../components/ImageSlot.astro";
+import ProductShot from "../../components/ProductShot.astro";
 import CTASection from "../../components/CTASection.astro";
 import { industries, moreIndustries } from "../../data/site";
+import { shots, industryShot } from "../../data/shots";
 ---
 <Layout title="Industries" description="Bvive supports gyms, childcare, allied health, education, subscription and other recurring-revenue businesses across Australia.">
   <PageHero
@@ -22,7 +23,7 @@ import { industries, moreIndustries } from "../../data/site";
         {industries.map((ind, i) => (
           <a href={`/industries/${ind.slug}`} class={`icard ${i === 0 ? "icard--feature" : ""}`} data-reveal>
             <div class="icard__media">
-              <ImageSlot label={ind.imageLabel} ratio={i === 0 ? "16 / 9" : "4 / 3"} rounded="0" />
+              <ProductShot {...shots[industryShot[ind.slug]]} glow={false} ratio={i === 0 ? "16 / 9" : "16 / 11"} />
             </div>
             <div class="icard__body">
               <div class="icard__stat"><b class="tnum">{ind.stat.value}</b> <span>{ind.stat.label}</span></div>

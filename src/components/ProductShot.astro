@@ -76,12 +76,13 @@ const {
     height: auto;
   }
 
-  /* When a ratio is given, crop from the top so headers stay visible. */
+  /* When a ratio is given, crop from the top-left. Anchoring left keeps the
+     app's own edge intact: centring slices the first column mid-word. */
   .shot[style*="--shot-ratio"] .shot__frame { aspect-ratio: var(--shot-ratio); }
   .shot[style*="--shot-ratio"] .shot__img {
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: top left;
   }
 
   .shot:hover .shot__frame {

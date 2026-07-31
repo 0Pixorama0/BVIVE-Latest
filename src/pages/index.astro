@@ -452,9 +452,9 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .indtab__points li { display: flex; align-items: center; gap: 9px; font-size: var(--text-base); color: var(--ink-700); }
   .indtab__points :global(svg) { color: var(--green-600); flex-shrink: 0; }
   .indtab__media { position: relative; }
-  /* Sits over the app's own sidebar, the one strip of every screenshot that
-     carries no data, instead of covering the charts on the right. */
-  .indtab__stat { position: absolute; z-index: 2; left: -22px; bottom: -24px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-3) var(--sp-4); box-shadow: var(--shadow-lg); text-align: center; }
+  /* Hangs off the bottom-left corner. Not every screenshot has an app sidebar
+     to sit over, so it clips the frame instead of covering a chart. */
+  .indtab__stat { position: absolute; z-index: 2; left: -30px; bottom: -34px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-3) var(--sp-4); box-shadow: var(--shadow-lg); text-align: center; }
   .indtab__stat b { display: block; font-family: var(--font-display); font-size: var(--text-xl); color: var(--blue-600); letter-spacing: -.02em; }
   .indtab__stat span { font-size: var(--text-xs); color: var(--text-muted); max-width: 19ch; display: block; }
 

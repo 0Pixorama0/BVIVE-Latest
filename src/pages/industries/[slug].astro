@@ -1,12 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
-import ImageSlot from "../../components/ImageSlot.astro";
 import ProductShot from "../../components/ProductShot.astro";
 import CTASection from "../../components/CTASection.astro";
 import Faq from "../../components/Faq.astro";
 import { industries, pillars } from "../../data/site";
-import { shots } from "../../data/shots";
+import { shots, industryShot } from "../../data/shots";
 
 export function getStaticPaths() {
   return industries.map((ind) => ({ params: { slug: ind.slug }, props: { ind } }));
@@ -30,7 +29,7 @@ const others = industries.filter((i) => i.slug !== ind.slug);
         </div>
       </div>
       <div class="ihero__media" data-reveal>
-        <ImageSlot label={ind.imageLabel} ratio="4 / 5" eager rounded="var(--r-xl)" />
+        <ProductShot {...shots[industryShot[ind.slug]]} eager />
         <div class="ihero__stat"><b class="tnum">{ind.stat.value}</b><span>{ind.stat.label}</span></div>
       </div>
     </div>
@@ -107,15 +106,20 @@ const others = industries.filter((i) => i.slug !== ind.slug);
 <style>
   .ihero { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem); background: linear-gradient(180deg, var(--ink-50), var(--paper)); border-bottom: 1px solid var(--border-soft); }
   .ihero__bg { position: absolute; inset: 0; background: radial-gradient(50% 60% at 90% 10%, rgba(0,146,69,.10), transparent 60%); }
-  .ihero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-  .ihero__crumb { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); margin-bottom: var(--sp-4); }
+  /* the screenshot is landscape, so it needs more width than the old portrait slot */
+  .ihero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+  /* flex, not inline-flex, so the eyebrow below starts on its own line */
+  .ihero__crumb { display: flex; width: fit-content; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 600; color: var(--text-muted); margin-bottom: var(--sp-4); transition: color var(--dur) var(--ease-out), gap var(--dur) var(--ease-out); }
+  .ihero__crumb:hover { color: var(--blue-600); gap: 9px; }
   .rot { transform: rotate(180deg); }
   .ihero h1 { margin-top: var(--sp-3); font-size: var(--text-4xl); }
   .ihero__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: var(--text-muted); }
   .ihero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-7); }
   .ihero__media { position: relative; }
-  .ihero__stat { position: absolute; left: -18px; bottom: 24px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); box-shadow: var(--shadow-lg); max-width: 12rem; }
-  .ihero__stat b { display: block; font-family: var(--font-display); font-size: var(--text-3xl); color: var(--blue-600); letter-spacing: -.03em; }
+  /* hangs off the bottom-left corner so it clips the frame rather than
+     sitting on top of a chart */
+  .ihero__stat { position: absolute; z-index: 2; left: -30px; bottom: -34px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-3) var(--sp-4); box-shadow: var(--shadow-lg); max-width: 10rem; }
+  .ihero__stat b { display: block; font-family: var(--font-display); font-size: var(--text-2xl); color: var(--blue-600); letter-spacing: -.03em; }
   .ihero__stat span { font-size: var(--text-sm); color: var(--text-muted); }
 
   .pb { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }

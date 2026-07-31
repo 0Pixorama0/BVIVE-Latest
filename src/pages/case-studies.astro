@@ -2,24 +2,25 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import Icon from "../components/Icon.astro";
-import ImageSlot from "../components/ImageSlot.astro";
+import ProductShot from "../components/ProductShot.astro";
 import CTASection from "../components/CTASection.astro";
+import { shots } from "../data/shots";
 
 const scenarios = [
   {
-    industry: "Gyms & Fitness", label: "Gym operator reviewing recovered member payments",
+    industry: "Gyms & Fitness", shot: "paymentRecovery" as const,
     metric: "$4,100", metricLabel: "modelled monthly recovery",
     before: "Failed member debits were exported weekly and chased inconsistently by whoever had time.",
     after: "Every failed payment becomes a prioritised, owned task with a logged outcome and a clear recovery figure.",
   },
   {
-    industry: "Childcare", label: "Centre manager coordinating parent follow-up",
+    industry: "Childcare", shot: "taskBoard" as const,
     metric: "63%", metricLabel: "modelled cancellation save rate",
     before: "Overdue family accounts lived in a spreadsheet and cancellation requests slipped through.",
     after: "A single arrears view and a structured save workflow keep every account moving toward resolution.",
   },
   {
-    industry: "Allied Health", label: "Practice manager using Bvive at the clinic",
+    industry: "Allied Health", shot: "arrearsManagement" as const,
     metric: "3.4 days", metricLabel: "modelled avg. time to recover",
     before: "Recurring care payments failed quietly and follow-up depended on memory.",
     after: "Risk surfaces the moment it appears, so the team acts earlier and care revenue stays on track.",
@@ -48,7 +49,7 @@ const proof = [
       <div class="cs" data-reveal>
         {scenarios.map((s, i) => (
           <article class={`cscard ${i === 0 ? "cscard--wide" : ""}`}>
-            <div class="cscard__media"><ImageSlot label={s.label} ratio={i === 0 ? "16 / 9" : "4 / 3"} rounded="0" /></div>
+            <div class="cscard__media"><ProductShot {...shots[s.shot]} glow={false} ratio={i === 0 ? "16 / 9" : "16 / 11"} /></div>
             <div class="cscard__body">
               <span class="pill pill--tint">{s.industry}</span>
               <div class="cscard__metric"><b class="tnum grad-text">{s.metric}</b><span>{s.metricLabel}</span></div>

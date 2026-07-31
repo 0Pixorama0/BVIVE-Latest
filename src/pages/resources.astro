@@ -2,22 +2,24 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import Icon from "../components/Icon.astro";
-import ImageSlot from "../components/ImageSlot.astro";
+import ProductShot from "../components/ProductShot.astro";
 import CTASection from "../components/CTASection.astro";
+import { shots } from "../data/shots";
 
+/* Each article is illustrated with the screen it is actually about. */
 const featured = {
   cat: "Guide", read: "8 min read",
   title: "The recurring-revenue leak: where direct-debit businesses quietly lose money",
   excerpt: "A practical breakdown of the four gaps (failed payments, arrears, cancellations and follow-up) and how to close each one.",
-  label: "Editorial hero image, revenue leak concept, premium and abstract",
+  shot: "dashboardHome" as const,
 };
 const articles = [
-  { cat: "Failed payments", title: "Why direct debits fail, and a workflow to recover them", read: "6 min" },
-  { cat: "Cancellations", title: "Turning cancellation requests into structured saves", read: "5 min" },
-  { cat: "Operations", title: "Getting off spreadsheets: a staged rollout for arrears", read: "7 min" },
-  { cat: "Retention", title: "The customer lifecycle map for recurring-revenue teams", read: "6 min" },
-  { cat: "Analytics", title: "The five numbers every owner should watch weekly", read: "4 min" },
-  { cat: "Playbook", title: "Building an accountable follow-up process for your team", read: "8 min" },
+  { cat: "Failed payments", title: "Why direct debits fail, and a workflow to recover them", read: "6 min", shot: "arrearsManagement" as const },
+  { cat: "Cancellations", title: "Turning cancellation requests into structured saves", read: "5 min", shot: "cancellationNote" as const },
+  { cat: "Operations", title: "Getting off spreadsheets: a staged rollout for arrears", read: "7 min", shot: "automationOverdue" as const },
+  { cat: "Retention", title: "The customer lifecycle map for recurring-revenue teams", read: "6 min", shot: "cancellationReview" as const },
+  { cat: "Analytics", title: "The five numbers every owner should watch weekly", read: "4 min", shot: "analyticsStaff" as const },
+  { cat: "Playbook", title: "Building an accountable follow-up process for your team", read: "8 min", shot: "taskBoard" as const },
 ];
 const magnets = [
   { ic: "check-circle", t: "Revenue leakage checklist", d: "A one-page audit of where your recurring revenue is at risk." },
@@ -36,7 +38,7 @@ const magnets = [
   <section class="section section--flush-top">
     <div class="container">
       <a href="/book-demo" class="featured" data-reveal>
-        <div class="featured__media"><ImageSlot label={featured.label} ratio="16 / 10" rounded="0" /></div>
+        <div class="featured__media"><ProductShot {...shots[featured.shot]} glow={false} ratio="16 / 10" /></div>
         <div class="featured__body">
           <div class="featured__meta"><span class="pill pill--tint">{featured.cat}</span><span>{featured.read}</span></div>
           <h2>{featured.title}</h2>
@@ -48,7 +50,7 @@ const magnets = [
       <div class="arts" data-reveal>
         {articles.map((a) => (
           <a href="/book-demo" class="art">
-            <div class="art__media"><ImageSlot label={`${a.cat} article thumbnail`} ratio="16 / 10" rounded="0" /></div>
+            <div class="art__media"><ProductShot {...shots[a.shot]} glow={false} ratio="16 / 10" /></div>
             <div class="art__body">
               <div class="art__meta"><span>{a.cat}</span><span class="art__dot"></span><span>{a.read}</span></div>
               <h3>{a.title}</h3>
