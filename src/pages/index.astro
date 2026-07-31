@@ -5,8 +5,6 @@ import HeroDashboard from "../components/mock/HeroDashboard.astro";
 import Calculator from "../components/Calculator.astro";
 import Faq from "../components/Faq.astro";
 import CTASection from "../components/CTASection.astro";
-import Photo from "../components/Photo.astro";
-import gymInterior from "../assets/photos/gym-interior.png";
 import ProductShot from "../components/ProductShot.astro";
 import { pillars, modules, howItWorks, industries, moreIndustries } from "../data/site";
 import { shots, industryShot } from "../data/shots";
@@ -230,38 +228,6 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
     </div>
   </section>
 
-  <!-- ============ PROOF / FOUNDER ============ -->
-  <section class="section section--tint proof">
-    <div class="container">
-      <div class="proof__grid">
-        <div class="proof__media" data-reveal>
-          <Photo
-            src={gymInterior}
-            alt="The training floor of a modern fitness club, with warm lighting over the equipment area and a wellness and fitness sign at reception."
-            ratio="4 / 5"
-            focus="38% 68%"
-          />
-        </div>
-        <div class="proof__copy" data-reveal>
-          <span class="eyebrow">Why Bvive exists</span>
-          <blockquote class="proof__quote">
-            <Icon name="quote" size={30} class="proof__qmark" />
-            <p>We watched recurring-revenue businesses lose real money through small operational gaps: a failed debit no one chased, a cancellation handled too late. Bvive is the system we wished we'd had: one place to see the risk and act on it.</p>
-          </blockquote>
-          <div class="proof__by">
-            <b>Built by operators</b>
-            <span>who understand member-based, direct-debit revenue</span>
-          </div>
-          <div class="proof__stats">
-            <div><b class="tnum">4</b><span>revenue moments, unified</span></div>
-            <div><b class="tnum">1</b><span>platform, not a spreadsheet</span></div>
-            <div><b>AU</b><span>recurring-revenue focus</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ CALCULATOR ============ -->
   <Calculator />
 
@@ -465,16 +431,6 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .indtab__stat span { font-size: var(--text-xs); color: var(--text-muted); max-width: 19ch; display: block; }
 
   /* ---------- PROOF ---------- */
-  .proof__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-  .proof__quote { position: relative; margin-top: var(--sp-4); }
-  .proof__qmark { color: var(--blue-200); margin-bottom: var(--sp-3); }
-  .proof__quote p { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 400; line-height: 1.35; letter-spacing: -.02em; color: var(--ink-900); }
-  .proof__by { margin-top: var(--sp-6); }
-  .proof__by b { display: block; font-size: var(--text-md); }
-  .proof__by span { font-size: var(--text-base); color: var(--text-muted); }
-  .proof__stats { display: flex; gap: var(--sp-7); margin-top: var(--sp-7); padding-top: var(--sp-6); border-top: 1px solid var(--border); }
-  .proof__stats b { font-family: var(--font-display); font-size: var(--text-3xl); color: var(--ink-900); letter-spacing: -.03em; }
-  .proof__stats span { display: block; font-size: var(--text-sm); color: var(--text-muted); margin-top: 4px; max-width: 18ch; }
 
   /* ---------- responsive ---------- */
   @media (max-width: 1000px) {
@@ -483,7 +439,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
     .hero__float--2 { right: 10px; }
   }
   @media (max-width: 900px) {
-    .problem__grid, .bento, .indtab__panel, .proof__grid { grid-template-columns: 1fr; }
+    .problem__grid, .bento, .indtab__panel { grid-template-columns: 1fr; }
     /* keep the floating stat inside the gutter once the panel stacks */
     .indtab__stat { left: 8px; bottom: -16px; }
     .pillars__row { grid-template-columns: 1fr 1fr; }
@@ -492,12 +448,10 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
     .bento__feature { grid-template-columns: 1fr; }
     .showcase__head { flex-direction: column; align-items: flex-start; }
     .step__line { display: none; }
-    .proof__stats { gap: var(--sp-5); }
   }
   @media (max-width: 540px) {
     .pillars__row, .steps, .indtab__points { grid-template-columns: 1fr; }
     .hero__float { display: none; }
-    .proof__stats { flex-wrap: wrap; gap: var(--sp-4); }
   }
 </style>
 
