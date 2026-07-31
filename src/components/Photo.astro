@@ -1,0 +1,62 @@
+---
+/* A real photograph, as opposed to ProductShot which frames a UI capture.
+   No border or app chrome: a photo should sit flush in its rounded corner. */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  ratio?: string;
+  class?: string;
+  eager?: boolean;
+  /* where to anchor the crop when the ratio is tighter than the source */
+  focus?: string;
+}
+const {
+  src,
+  alt,
+  ratio = "16 / 10",
+  class: cls = "",
+  eager = false,
+  focus = "center",
+} = Astro.props;
+---
+<figure class:list={["photo", cls]} style={`--photo-ratio:${ratio};--photo-focus:${focus}`}>
+  <Image
+    src={src}
+    alt={alt}
+    widths={[640, 960, 1280, 1932]}
+    sizes="(max-width: 900px) 92vw, min(700px, 46vw)"
+    loading={eager ? "eager" : "lazy"}
+    decoding={eager ? "sync" : "async"}
+    class="photo__img"
+  />
+</figure>
+
+<style>
+  .photo {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: var(--photo-ratio);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-lg);
+    background: var(--ink-100);
+  }
+  .photo :global(.photo__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--photo-focus);
+    transition: transform var(--dur-slower) var(--ease-out);
+  }
+  /* a slow push-in on hover, so the photo feels alive next to the motion
+     elsewhere on the page */
+  .photo:hover :global(.photo__img) { transform: scale(1.03); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo :global(.photo__img) { transition: none; }
+    .photo:hover :global(.photo__img) { transform: none; }
+  }
+</style>

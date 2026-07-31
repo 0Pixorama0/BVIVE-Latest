@@ -2,7 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import Icon from "../components/Icon.astro";
-import ImageSlot from "../components/ImageSlot.astro";
+import Photo from "../components/Photo.astro";
+import gymInterior from "../assets/photos/gym-interior.png";
 import CTASection from "../components/CTASection.astro";
 
 const values = [
@@ -34,7 +35,12 @@ const story = [
     <div class="container">
       <div class="story" data-reveal>
         <div class="story__media">
-          <ImageSlot label="Founder or operator in a real business environment, gym or membership setting" ratio="4 / 5" rounded="var(--r-xl)" />
+          <Photo
+            src={gymInterior}
+            alt="A modern fitness club interior, with track lighting above the equipment floor and a timber-slatted reception wall."
+            ratio="4 / 5"
+            focus="64% 66%"
+          />
         </div>
         <div class="story__copy">
           <span class="eyebrow">Our story</span>

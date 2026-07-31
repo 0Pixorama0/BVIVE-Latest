@@ -5,7 +5,8 @@ import HeroDashboard from "../components/mock/HeroDashboard.astro";
 import Calculator from "../components/Calculator.astro";
 import Faq from "../components/Faq.astro";
 import CTASection from "../components/CTASection.astro";
-import ImageSlot from "../components/ImageSlot.astro";
+import Photo from "../components/Photo.astro";
+import gymInterior from "../assets/photos/gym-interior.png";
 import ProductShot from "../components/ProductShot.astro";
 import { pillars, modules, howItWorks, industries, moreIndustries } from "../data/site";
 import { shots, industryShot } from "../data/shots";
@@ -234,7 +235,12 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
     <div class="container">
       <div class="proof__grid">
         <div class="proof__media" data-reveal>
-          <ImageSlot label="Founder or operator portrait, confident and approachable in a real business environment" ratio="3 / 4" rounded="var(--r-xl)" />
+          <Photo
+            src={gymInterior}
+            alt="The training floor of a modern fitness club, with warm lighting over the equipment area and a wellness and fitness sign at reception."
+            ratio="4 / 5"
+            focus="38% 68%"
+          />
         </div>
         <div class="proof__copy" data-reveal>
           <span class="eyebrow">Why Bvive exists</span>
