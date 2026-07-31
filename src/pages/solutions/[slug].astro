@@ -2,10 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import Icon from "../../components/Icon.astro";
-import SolutionMock from "../../components/mock/SolutionMock.astro";
+import ProductShot from "../../components/ProductShot.astro";
 import CTASection from "../../components/CTASection.astro";
 import Faq from "../../components/Faq.astro";
 import { solutions, pillars } from "../../data/site";
+import { shots, solutionShot } from "../../data/shots";
 
 export function getStaticPaths() {
   return solutions.map((s) => ({ params: { slug: s.slug }, props: { sol: s } }));
@@ -48,7 +49,7 @@ const pillar = pillars.find((p) => p.key === sol.pillar)!;
           </div>
         </div>
         <div class="split__mock" data-reveal>
-          <SolutionMock variant={sol.mock} />
+          <ProductShot {...shots[solutionShot[sol.mock]]} eager />
         </div>
       </div>
     </div>
@@ -100,7 +101,7 @@ const pillar = pillars.find((p) => p.key === sol.pillar)!;
 </Layout>
 
 <style>
-  .split__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .split__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
   .ba { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); }
   .ba__card { padding: var(--sp-5); border-radius: var(--r-lg); border: 1px solid var(--border-soft); }
   .ba__card--before { background: var(--white); }

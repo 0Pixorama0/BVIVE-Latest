@@ -1,10 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
-import SolutionMock from "../components/mock/SolutionMock.astro";
+import ProductShot from "../components/ProductShot.astro";
 import Calculator from "../components/Calculator.astro";
 import CTASection from "../components/CTASection.astro";
 import { modules, pillars, howItWorks } from "../data/site";
+import { shots } from "../data/shots";
+
+/* A walk through the real product, shown after the module list. */
+const tour = [
+  { k: "dashboardHome", t: "One dashboard for the whole operation", b: "Revenue, overdue balance, leads, cancellations and pending tasks in a single view, with an activity trend across the month." },
+  { k: "leadPipeline", t: "A pipeline your team actually works", b: "Leads sit in scheduled, new, hot, warm and cold columns and move by drag and drop, so the next action is never in doubt." },
+  { k: "cancellationNote", t: "Structured cancellation conversations", b: "Every save call captures a summary, an outcome and a next step, so retention follows a process instead of improvising." },
+  { k: "automationOverdue", t: "Automations that do the chasing", b: "Trigger on an upload, branch on overdue status and send templated email and SMS without anyone remembering to." },
+  { k: "analyticsStaff", t: "Performance you can actually compare", b: "Call attempts, conversations, payments taken and tasks completed, side by side across the team." },
+  { k: "leadLinks", t: "Campaign links that capture leads", b: "Generate a tracked URL and landing page per campaign, then watch views and conversions against each one." },
+] as const;
 const live = modules.filter((m) => m.status !== "roadmap");
 const roadmap = modules.filter((m) => m.status === "roadmap");
 const solutionSlugs = new Set(["payment-recovery","arrears-management","cancellation-management","customer-lifecycle","staff-workflow","analytics"]);
@@ -25,7 +36,7 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
           <a href="#modules" class="btn btn--on-navy btn--lg">Explore modules</a>
         </div>
       </div>
-      <div class="phhero__mock" data-reveal><SolutionMock variant="analytics" /></div>
+      <div class="phhero__mock" data-reveal><ProductShot {...shots.salesAnalytics} eager /></div>
     </div>
   </section>
 
@@ -60,6 +71,31 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
       <div class="roadmap" data-reveal>
         <span class="roadmap__label">On the roadmap</span>
         <ul>{roadmap.map((m) => <li><span class="pill pill--roadmap"><span class="dot"></span> {m.name}</span> <span class="roadmap__desc">{m.summary}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product tour -->
+  <section class="section tour">
+    <div class="container--wide">
+      <div class="heading-block heading-block--center" data-reveal>
+        <span class="eyebrow eyebrow--center">Inside Bvive</span>
+        <h2>The actual product, not an illustration</h2>
+        <p class="lead mx-auto">Every screen below is a real view from Bvive. This is what your team works in day to day.</p>
+      </div>
+      <div class="tour__rows">
+        {tour.map((row, i) => (
+          <article class:list={["tour__row", i % 2 === 1 && "tour__row--flip"]}>
+            <div class="tour__copy" data-reveal={i % 2 === 1 ? "right" : "left"}>
+              <span class="tour__n tnum">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{row.t}</h3>
+              <p>{row.b}</p>
+            </div>
+            <div class="tour__media" data-reveal="scale">
+              <ProductShot {...shots[row.k]} />
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -114,6 +150,25 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
   .phhero__sub { margin-top: var(--sp-5); font-size: var(--text-lg); color: #9fb4cb; }
   .phhero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-7); }
 
+  /* ---------- PRODUCT TOUR ---------- */
+  .tour__rows { display: grid; gap: clamp(3rem, 6vw, 5.5rem); margin-top: var(--sp-9); }
+  /* The screenshot always takes the wider column, on both orderings. */
+  .tour__row {
+    display: grid; grid-template-columns: 0.62fr 1.38fr;
+    gap: clamp(2rem, 4vw, 3.5rem); align-items: center;
+  }
+  .tour__row--flip { grid-template-columns: 1.38fr 0.62fr; }
+  .tour__row--flip .tour__copy { order: 2; }
+  .tour__row--flip .tour__media { order: 1; }
+  .tour__n {
+    display: inline-block; font-family: var(--font-mono); font-size: var(--text-sm);
+    font-weight: 600; color: var(--blue-600); letter-spacing: var(--tracking-wide);
+    padding-bottom: var(--sp-2); margin-bottom: var(--sp-2);
+    border-bottom: 2px solid var(--blue-100);
+  }
+  .tour__copy h3 { font-size: var(--text-2xl); letter-spacing: var(--tracking-snug); }
+  .tour__copy p { margin-top: var(--sp-3); font-size: var(--text-lg); color: var(--text-muted); max-width: 46ch; }
+
   .phpillars { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-4); }
   .phpillar { display: flex; flex-direction: column; gap: 6px; padding: var(--sp-5); border-radius: var(--r-lg); border: 1px solid var(--border-soft); background: var(--white); box-shadow: var(--shadow-xs); }
   .phpillar__ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(160deg,var(--blue-50),var(--green-50)); color: var(--blue-600); margin-bottom: var(--sp-2); }
@@ -162,6 +217,11 @@ const modHref = (slug: string) => solutionSlugs.has(slug) ? `/solutions/${slug}`
     .phhero__inner, .twocol { grid-template-columns: 1fr; }
     .phpillars, .modgrid, .steps { grid-template-columns: 1fr 1fr; }
     .step__line { display: none; }
+    /* stack the tour, and keep copy above its screenshot on every row */
+    .tour__row,
+    .tour__row--flip { grid-template-columns: 1fr; }
+    .tour__row--flip .tour__copy { order: 0; }
+    .tour__row--flip .tour__media { order: 0; }
   }
   @media (max-width: 560px) { .phpillars, .modgrid, .steps { grid-template-columns: 1fr; } }
 </style>

@@ -2,10 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import ImageSlot from "../../components/ImageSlot.astro";
-import SolutionMock from "../../components/mock/SolutionMock.astro";
+import ProductShot from "../../components/ProductShot.astro";
 import CTASection from "../../components/CTASection.astro";
 import Faq from "../../components/Faq.astro";
 import { industries, pillars } from "../../data/site";
+import { shots } from "../../data/shots";
 
 export function getStaticPaths() {
   return industries.map((ind) => ({ params: { slug: ind.slug }, props: { ind } }));
@@ -63,7 +64,7 @@ const others = industries.filter((i) => i.slug !== ind.slug);
           </ul>
           <a href="/platform" class="link-arrow">See the full platform <Icon name="arrow" size={16} /></a>
         </div>
-        <div class="ipoints__mock"><SolutionMock variant="recovery" /></div>
+        <div class="ipoints__mock"><ProductShot {...shots.paymentRecovery} /></div>
       </div>
     </div>
   </section>
@@ -124,7 +125,7 @@ const others = industries.filter((i) => i.slug !== ind.slug);
   .pb__col--good .pb__k { color: var(--green-600); }
   .pb__col p { font-size: var(--text-lg); color: var(--ink-700); line-height: 1.55; }
 
-  .ipoints { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .ipoints { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
   .ipoints__copy h2 { margin: var(--sp-4) 0 var(--sp-5); }
   .ipoints__copy ul { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-6); }
   .ipoints__copy li { display: flex; align-items: center; gap: 11px; font-size: var(--text-lg); color: var(--ink-800); }

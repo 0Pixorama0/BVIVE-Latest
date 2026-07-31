@@ -1,0 +1,103 @@
+---
+/* A real product screenshot, presented as a framed surface.
+
+   Deliberately no fake browser chrome: several of these captures already
+   include the Bvive app header, so a chrome bar carrying the logo would
+   show it twice. */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+  glow?: boolean;
+  /* crop tall captures to a calmer aspect, anchored to the top */
+  ratio?: string;
+}
+const {
+  src,
+  alt,
+  class: cls = "",
+  eager = false,
+  glow = true,
+  ratio,
+} = Astro.props;
+---
+<figure class:list={["shot", cls]} style={ratio ? `--shot-ratio:${ratio}` : undefined}>
+  {glow && <span class="shot__glow" aria-hidden="true"></span>}
+  <div class="shot__frame">
+    <Image
+      src={src}
+      alt={alt}
+      widths={[640, 960, 1280, 1600, 2000]}
+      sizes="(max-width: 900px) 92vw, min(860px, 58vw)"
+      loading={eager ? "eager" : "lazy"}
+      decoding={eager ? "sync" : "async"}
+      class="shot__img"
+    />
+  </div>
+</figure>
+
+<style>
+  .shot {
+    position: relative;
+    margin: 0;
+    isolation: isolate;
+  }
+
+  /* Brand halo, so the shot lifts off both light and navy sections. */
+  .shot__glow {
+    position: absolute;
+    inset: -6% -4%;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, rgb(var(--rgb-blue) / .22), transparent 70%);
+    filter: blur(44px);
+    pointer-events: none;
+  }
+
+  .shot__frame {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--dur-slow) var(--ease-out),
+                box-shadow var(--dur-slow) var(--ease-out);
+  }
+
+  .shot__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* When a ratio is given, crop from the top so headers stay visible. */
+  .shot[style*="--shot-ratio"] .shot__frame { aspect-ratio: var(--shot-ratio); }
+  .shot[style*="--shot-ratio"] .shot__img {
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .shot:hover .shot__frame {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl), 0 0 0 1px rgb(var(--rgb-blue) / .12);
+  }
+
+  /* On navy the hairline needs to read as light, not dark. */
+  :global(.section--navy) .shot__frame,
+  :global(.phero--navy) .shot__frame {
+    border-color: rgba(255, 255, 255, .14);
+    outline: 1px solid rgba(10, 23, 37, .06);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shot__frame { transition: none; }
+    .shot:hover .shot__frame { transform: none; }
+  }
+</style>
