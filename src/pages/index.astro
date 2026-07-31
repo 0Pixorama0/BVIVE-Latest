@@ -6,7 +6,9 @@ import Calculator from "../components/Calculator.astro";
 import Faq from "../components/Faq.astro";
 import CTASection from "../components/CTASection.astro";
 import ImageSlot from "../components/ImageSlot.astro";
+import ProductShot from "../components/ProductShot.astro";
 import { pillars, modules, howItWorks, industries, moreIndustries } from "../data/site";
+import { shots, industryShot } from "../data/shots";
 
 const liveModules = modules.filter((m) => m.status !== "roadmap");
 const roadmap = modules.filter((m) => m.status === "roadmap");
@@ -217,7 +219,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
                 <a href={`/industries/${ind.slug}`} class="btn btn--dark btn--sm">Explore {ind.short} <Icon name="arrow" size={15} class="btn__icon" /></a>
               </div>
               <div class="indtab__media">
-                <ImageSlot label={ind.imageLabel} ratio="4 / 3" rounded="var(--r-lg)" />
+                <ProductShot {...shots[industryShot[ind.slug]]} />
                 <div class="indtab__stat"><b class="tnum">{ind.stat.value}</b><span>{ind.stat.label}</span></div>
               </div>
             </div>
@@ -421,18 +423,40 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   .indtab__tab { padding: 9px 18px; border-radius: var(--r-pill); font-size: var(--text-base); font-weight: 600; color: var(--ink-500); transition: all var(--dur) var(--ease-out); }
   .indtab__tab:hover { color: var(--ink-900); background: var(--ink-50); }
   .indtab__tab.is-on { color: #fff; background: var(--ink-900); }
-  .indtab__panel { display: none; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-  .indtab__panel.is-on { display: grid; animation: fadeUp var(--dur-slow) var(--ease-out); }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  /* Panels are stacked in one grid cell rather than display:none'd. A hidden
+     panel keeps its layout box, so its lazy screenshot still loads with the
+     section instead of showing an empty frame on first click. It also stops
+     the section resizing as you move between tabs. */
+  .indtab__panels { display: grid; }
+  .indtab__panel {
+    grid-area: 1 / 1;
+    display: grid; grid-template-columns: 0.82fr 1.18fr;
+    gap: clamp(2rem, 4vw, 3.5rem); align-items: center;
+    visibility: hidden; opacity: 0; pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity var(--dur-slow) var(--ease-out),
+                transform var(--dur-slow) var(--ease-out),
+                visibility 0s linear var(--dur-slow);
+  }
+  .indtab__panel.is-on {
+    visibility: visible; opacity: 1; pointer-events: auto;
+    transform: none;
+    transition-delay: 0s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .indtab__panel { transition: none; transform: none; }
+  }
   .indtab__copy h3 { font-size: var(--text-2xl); }
   .indtab__copy p { margin: var(--sp-4) 0; color: var(--text-muted); font-size: var(--text-lg); }
   .indtab__points { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin-bottom: var(--sp-6); }
   .indtab__points li { display: flex; align-items: center; gap: 9px; font-size: var(--text-base); color: var(--ink-700); }
   .indtab__points :global(svg) { color: var(--green-600); flex-shrink: 0; }
   .indtab__media { position: relative; }
-  .indtab__stat { position: absolute; right: -16px; bottom: -16px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-4) var(--sp-5); box-shadow: var(--shadow-lg); text-align: center; }
-  .indtab__stat b { display: block; font-family: var(--font-display); font-size: var(--text-2xl); color: var(--blue-600); letter-spacing: -.02em; }
-  .indtab__stat span { font-size: var(--text-xs); color: var(--text-muted); max-width: 16ch; display: block; }
+  /* Sits over the app's own sidebar, the one strip of every screenshot that
+     carries no data, instead of covering the charts on the right. */
+  .indtab__stat { position: absolute; z-index: 2; left: -22px; bottom: -24px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-3) var(--sp-4); box-shadow: var(--shadow-lg); text-align: center; }
+  .indtab__stat b { display: block; font-family: var(--font-display); font-size: var(--text-xl); color: var(--blue-600); letter-spacing: -.02em; }
+  .indtab__stat span { font-size: var(--text-xs); color: var(--text-muted); max-width: 19ch; display: block; }
 
   /* ---------- PROOF ---------- */
   .proof__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
@@ -454,6 +478,8 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
   }
   @media (max-width: 900px) {
     .problem__grid, .bento, .indtab__panel, .proof__grid { grid-template-columns: 1fr; }
+    /* keep the floating stat inside the gutter once the panel stacks */
+    .indtab__stat { left: 8px; bottom: -16px; }
     .pillars__row { grid-template-columns: 1fr 1fr; }
     .steps { grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
     .bento__feature, .bento__card { grid-column: span 1; }

@@ -127,3 +127,14 @@ export const solutionShot: Record<string, ShotKey> = {
   analytics: "analyticsOverview",
   tasks: "taskBoard",
 };
+
+/* One screen per industry tab on the homepage, so clicking through the tabs
+   shows a different part of the product rather than the same image relabelled.
+   These render small, so each pick favours big tiles and cards over dense rows. */
+export const industryShot: Record<string, ShotKey> = {
+  "gyms-fitness": "dashboardHome",
+  childcare: "analyticsOverview",
+  "allied-health": "cancellationsCompleted",
+  education: "taskBoard",
+  subscription: "salesAnalytics",
+};
