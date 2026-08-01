@@ -123,16 +123,6 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
       }, { threshold: 0.5 });
       document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => countIo.observe(el));
 
-      /* ---- Pointer-tracked glow on cards (desktop, fine pointer only) ---- */
-      if (!reduced.matches && window.matchMedia("(pointer: fine)").matches) {
-        document.querySelectorAll<HTMLElement>("[data-spot]").forEach((el) => {
-          el.addEventListener("pointermove", (ev) => {
-            const r = el.getBoundingClientRect();
-            el.style.setProperty("--mx", `${((ev.clientX - r.left) / r.width) * 100}%`);
-            el.style.setProperty("--my", `${((ev.clientY - r.top) / r.height) * 100}%`);
-          });
-        });
-      }
     </script>
   </body>
 </html>
