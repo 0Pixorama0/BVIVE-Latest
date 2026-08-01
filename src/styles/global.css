@@ -434,6 +434,57 @@ strong { font-weight: 600; color: var(--ink-800); }
   transition: scale 90ms linear, opacity var(--dur) var(--ease-out);
 }
 
+/* ---- Cursor-tracked spotlight ----
+   A soft light that follows the pointer across a card, as though the surface
+   were being lit from above. The --mx/--my custom properties are written by
+   the pointermove handler in Layout.astro; they fall back to the centre so
+   the effect still reads without JS.
+
+   The layer sits at z-index -1, which paints it above the card's own
+   background but beneath its content, so text stays crisp and the light
+   appears to come from behind. */
+[data-spot] {
+  position: relative;
+  isolation: isolate;
+}
+[data-spot]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  background:
+    radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--rgb-blue) / .30) 0%,
+      rgb(var(--rgb-green) / .16) 40%,
+      transparent 72%);
+}
+[data-spot]:hover::after,
+[data-spot]:focus-visible::after { opacity: 1; }
+
+/* the rim catches the light too */
+[data-spot]:hover {
+  border-color: rgb(var(--rgb-blue) / .30);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgb(var(--rgb-blue) / .10),
+              0 18px 44px -22px rgb(var(--rgb-blue) / .40);
+}
+
+/* any screenshot inside lifts slightly, so the whole card feels lit rather
+   than just the paper around the text */
+[data-spot] :global(.shot__img),
+[data-spot] .shot__img {
+  transition: filter var(--dur-slow) var(--ease-out);
+}
+[data-spot]:hover :global(.shot__img),
+[data-spot]:hover .shot__img { filter: brightness(1.04) saturate(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-spot]::after { transition: none; }
+}
+
 /* ---- Counters hold their box while animating ---- */
 [data-count] { font-variant-numeric: tabular-nums; }
 

@@ -79,19 +79,19 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
           <a href="/calculator" class="link-arrow">Estimate your revenue leakage <Icon name="arrow" size={16} /></a>
         </div>
         <ul class="leaks" data-reveal>
-          <li class="leak">
+          <li class="leak" data-spot>
             <span class="leak__ic leak__ic--red"><Icon name="bolt" size={18} /></span>
             <div><b>Failed debits pile up</b><p>Payments fail and sit in exports with no owner and no follow-up.</p></div>
           </li>
-          <li class="leak">
+          <li class="leak" data-spot>
             <span class="leak__ic leak__ic--amber"><Icon name="refresh" size={18} /></span>
             <div><b>Cancellations slip away</b><p>Requests are handled inconsistently, so save opportunities are missed.</p></div>
           </li>
-          <li class="leak">
+          <li class="leak" data-spot>
             <span class="leak__ic leak__ic--blue"><Icon name="arrears" size={18} /></span>
             <div><b>Arrears live in spreadsheets</b><p>Overdue accounts have no central accountability or clear next step.</p></div>
           </li>
-          <li class="leak">
+          <li class="leak" data-spot>
             <span class="leak__ic leak__ic--ink"><Icon name="eye" size={18} /></span>
             <div><b>Owners can't see the leak</b><p>No one can say how much revenue is actually recoverable right now.</p></div>
           </li>
@@ -110,7 +110,7 @@ const cardHref = (slug: string) => `/solutions/${slug}`;
       </div>
       <div class="pillars__row">
         {pillars.map((p, i) => (
-          <article class="pillar" data-reveal data-reveal-delay={String(i + 1)}>
+          <article class="pillar" data-reveal data-reveal-delay={String(i + 1)} data-spot>
             <span class="pillar__ic"><Icon name={p.icon} size={22} /></span>
             <h3>{p.title}</h3>
             <p>{p.body}</p>

@@ -37,7 +37,7 @@ const magnets = [
 
   <section class="section section--flush-top">
     <div class="container">
-      <a href="/book-demo" class="featured" data-reveal>
+      <a href="/book-demo" class="featured" data-reveal data-spot>
         <div class="featured__media"><ProductShot {...shots[featured.shot]} glow={false} ratio="16 / 10" /></div>
         <div class="featured__body">
           <div class="featured__meta"><span class="pill pill--tint">{featured.cat}</span><span>{featured.read}</span></div>
@@ -49,7 +49,7 @@ const magnets = [
 
       <div class="arts" data-reveal>
         {articles.map((a) => (
-          <a href="/book-demo" class="art">
+          <a href="/book-demo" class="art" data-spot>
             <div class="art__media"><ProductShot {...shots[a.shot]} glow={false} ratio="16 / 10" /></div>
             <div class="art__body">
               <div class="art__meta"><span>{a.cat}</span><span class="art__dot"></span><span>{a.read}</span></div>

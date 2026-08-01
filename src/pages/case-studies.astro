@@ -48,7 +48,7 @@ const proof = [
 
       <div class="cs" data-reveal>
         {scenarios.map((s, i) => (
-          <article class={`cscard ${i === 0 ? "cscard--wide" : ""}`}>
+          <article class={`cscard ${i === 0 ? "cscard--wide" : ""}`} data-spot>
             <div class="cscard__media"><ProductShot {...shots[s.shot]} glow={false} ratio={i === 0 ? "16 / 9" : "16 / 11"} /></div>
             <div class="cscard__body">
               <span class="pill pill--tint">{s.industry}</span>

@@ -21,7 +21,7 @@ import { shots, industryShot } from "../../data/shots";
     <div class="container">
       <div class="igrid">
         {industries.map((ind, i) => (
-          <a href={`/industries/${ind.slug}`} class={`icard ${i === 0 ? "icard--feature" : ""}`} data-reveal>
+          <a href={`/industries/${ind.slug}`} class={`icard ${i === 0 ? "icard--feature" : ""}`} data-reveal data-spot>
             <div class="icard__media">
               <ProductShot {...shots[industryShot[ind.slug]]} glow={false} ratio={i === 0 ? "16 / 9" : "16 / 11"} />
             </div>
