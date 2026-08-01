@@ -439,20 +439,27 @@ strong { font-weight: 600; color: var(--ink-800); }
    on the card itself. Nothing is painted over the card surface, so the
    content is untouched: only the background around it warms slightly.
 
-   box-shadow rather than a pseudo-element, so it is not clipped by the
-   overflow:hidden these cards use to crop their screenshots. */
-[data-spot] {
-  transition: box-shadow var(--dur-slow) var(--ease-out);
-}
+   drop-shadow, not box-shadow: every one of these cards already sets its
+   own box-shadow in an Astro scoped :hover rule, which outweighs anything
+   global and would silently swallow the glow. Nothing sets filter, so this
+   composes on top of the card's existing lift instead of fighting it. It
+   also escapes the overflow:hidden used to crop the screenshots. */
 [data-spot]:hover,
 [data-spot]:focus-visible {
-  box-shadow:
-    0 4px 14px -6px rgb(var(--rgb-blue) / .16),
-    0 10px 34px -14px rgb(var(--rgb-green) / .12);
+  filter:
+    drop-shadow(0 3px 8px rgb(var(--rgb-blue) / .20))
+    drop-shadow(0 12px 26px rgb(var(--rgb-green) / .16));
+}
+
+/* Tripled so it outweighs the scoped `transition:` shorthands on the cards,
+   which list only transform and box-shadow and would otherwise make the
+   glow snap on instantly. */
+[data-spot][data-spot][data-spot] {
+  transition: filter var(--dur-slow) var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-spot] { transition: none; }
+  [data-spot][data-spot][data-spot] { transition: none; }
 }
 
 /* ---- Counters hold their box while animating ---- */
